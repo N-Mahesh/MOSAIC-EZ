@@ -1,7 +1,7 @@
 # Public ciFAIR reproduction bundle
 
 Immutable release path:
-https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v4
+https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v5
 
 Verified environment: Python 3.12.5 and pypdf 6.14.2. The analysis itself uses only the Python standard library. Expected full verification time is under two minutes on a typical laptop.
 
