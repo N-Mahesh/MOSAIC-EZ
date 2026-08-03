@@ -1,0 +1,162 @@
+\documentclass[conference,10pt]{IEEEtran}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+% URTC requires a minimum 10-point font, including tables and references.
+\let\urtcnormalsize\normalsize
+\renewcommand{\small}{\urtcnormalsize}
+\renewcommand{\footnotesize}{\urtcnormalsize}
+\renewcommand{\scriptsize}{\urtcnormalsize}
+\renewcommand{\tiny}{\urtcnormalsize}
+\input{generated_cifair_validation}
+
+\title{Sharp Aggregate Bounds for Cluster-Induced Split Leakage:\\
+A Public ciFAIR Case Study}
+\author{\IEEEauthorblockN{Nikhil Mahesh}\IEEEauthorblockA{Pioneer Research}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+When record-level cluster memberships cannot be shared, an auditor may disclose only population size $M$, number of non-singleton groups $G$, their total membership $S$, and fixed test size $T$. Known-cluster hypergeometric formulas do not identify leakage because individual group sizes remain hidden. This paper proves sharp closed-form extrema for expected crossing groups and exposed test files over every compatible integer allocation. The crossing result holds for any nontrivial split; the exposure result allows groups larger than the test set when the test side is strictly smaller than the training side. A separate exact dynamic program checks the extrema. A public ciFAIR case study evaluates the calculations and target-definition sensitivity. For CIFAR-10, known-size expectations of \CifarTenKnownCross{} crossing groups and \CifarTenKnownExposed{} exposed files lie inside aggregate-only bounds \CifarTenCrossMin--\CifarTenCrossMax{} and \CifarTenExposedMin--\CifarTenExposedMax{}. CIFAR-100 gives \CifarHundredKnownCross{} and \CifarHundredKnownExposed{} inside \CifarHundredCrossMin--\CifarHundredCrossMax{} and \CifarHundredExposedMin--\CifarHundredExposedMax{}. The result is sharp partial identification of cluster-induced evaluation dependence, not a privacy guarantee, causal accuracy estimate, or duplicate detector.
+\end{abstract}
+
+\begin{IEEEkeywords}
+data leakage, duplicate clusters, partial identification, finite-population sampling, majorization
+\end{IEEEkeywords}
+
+\section{Introduction}
+Train--test overlap can bias evaluation and destabilize model comparisons \cite{kapoor2023,northcutt2021}. Duplicate audits have changed conclusions for CIFAR and face datasets \cite{barz2020,schlett2024}, while recent visual audits scale retrieval to large benchmarks \cite{ramos2025,adimoolam2026}. Group-aware splitting is preferable when memberships are available, but restricted datasets may prohibit their disclosure.
+
+This paper asks: \emph{What split leakage is identifiable when only $(M,G,S,T)$ may be published?} Its contributions are: (1) sharp expectation extrema over every hidden group-size allocation, including a broader parameter regime than the initial $K\leq T$ specialization; (2) an exact allocation dynamic program and pairwise-hypergeometric variance check for public known sizes; and (3) a reproducible ciFAIR case study with annotation-policy and single-edge-deletion sensitivity. The estimand is a counterfactual uniform fixed-size split, not classifier degradation.
+
+\section{Related Work}
+Classical finite-population richness work derives the expected number $D_t$ of distinct classes observed in a size-$t$ sample with arbitrary class frequencies \cite{hurlbert1971,walton1986}; database selectivity work gives the same unequal-frequency expectation and an earlier equal-multiplicity specialization \cite{christodoulakis1989,bitton1983}. A crossing count obeys the pointwise identity $C=D_T+D_{M-T}-G$, so the underlying expected-distinct functionals are not new. Guignard \emph{et al.} derive multivariate-hypergeometric cluster allocations and the known-size exposed-element expectation and variance \cite{guignard2024}; (2) below is its per-group expectation specialization. The new object is the integer fiber $\{(k_1,\ldots,k_G):k_i\geq2,\sum k_i=S\}$ when the size vector is unavailable. The contribution is the partial-identification layer: discrete-concavity proofs and sharp, attainable extrema for two functionals over that fiber. Classical majorization remains the proof mechanism \cite{wong1973,marshall2011}; DataSAIL instead constructs splits from known similarities \cite{joeres2025}. To the author's knowledge, this aggregate-only optimization has not appeared in the literature searched through Aug. 3, 2026; the archived search log records the expanded sampling, ecology, and database queries. This scoped claim asserts neither new sampling formulas nor a new majorization method.
+
+\section{Public Data and Operational Graphs}
+ciFAIR publishes CIFAR-10 and CIFAR-100 duplicate-pair annotations \cite{barz2020,cifairmeta}; CIFAR population and split sizes follow the primary dataset report \cite{krizhevsky2009}. At repository commit \texttt{4c2764277f5fda8fec6784a78c1818eab13236c5}, two CSVs per dataset list train--test and test--test pairs. Judgments denote approximate pixel copies (0), same-shot near-duplicates (1), and highly similar scenes (2).
+
+Train and test identifiers use separate namespaces. The primary policy unions categories 0--2 and closes edges into connected components. Components of size at least two are operational dependence groups; unlisted files are residual records. Closure produces the disjoint groups required by the theorem, but similarity itself is not transitive and the components are not claimed as identities or ground-truth provenance classes. No image download or feature extraction is used. Both populations have $M=60{,}000$ and $T=10{,}000$ (Table~\ref{tab:data}).
+
+\begin{table*}[t]
+\caption{Pinned ciFAIR construction and official-split observation. Histograms use size:count.}
+\label{tab:data}
+\centering
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrrlrr}
+\toprule
+Dataset & Edges & $G$ & $S$ & Max. & Group-size histogram & Crossing & Exposed\\
+\midrule
+CIFAR-10 & \CifarTenEdges{} & \CifarTenGroups{} & \CifarTenFiles{} & 8 & 2:272, 3:8, 4:5, 6:2, 8:1 & \CifarTenObservedCross{} & \CifarTenObservedExposed{}\\
+CIFAR-100 & \CifarHundredEdges{} & \CifarHundredGroups{} & \CifarHundredFiles{} & 8 & 2:752, 3:51, 4:17, 5:4, 6:5, 7:1, 8:1 & \CifarHundredObservedCross{} & \CifarHundredObservedExposed{}\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\section{Sharp Aggregate-Only Bounds}
+Let $M,T,G,S$ be integers with $1\leq T<M$, $G\geq1$, and $2G\leq S\leq M$. Hidden group sizes $k_i\geq2$ satisfy $\sum_i k_i=S$. Under a uniformly sampled test set of size $T$, a size-$k$ group crosses train and test with probability
+\begin{equation}
+c(k)=1-\frac{\binom{M-k}{T}}{\binom MT}
+-\frac{\binom{M-k}{T-k}}{\binom MT},
+\end{equation}
+and its expected test files having a same-group training record are
+\begin{equation}
+e(k)=\frac{kT}{M}-k\frac{\binom{M-k}{T-k}}{\binom MT}.
+\end{equation}
+Out-of-range binomial coefficients are zero. Let $K=S-2(G-1)$ be the largest feasible group.
+
+\noindent\emph{Theorem 1.} (a) For every $1\leq T<M$, $c(k)$ is nondecreasing and discrete-concave on $2\leq k\leq K$. (b) If $T\leq(M-1)/2$, $e(k)$ is strictly increasing and discrete-concave on the same domain; no $K\leq T$ condition is needed. Consequently, either sum $\sum_i c(k_i)$ or $\sum_i e(k_i)$ is minimized by $(K,2,\ldots,2)$ and maximized by group sizes differing by at most one.
+
+\noindent\emph{Proof.} Write $(q)_k=q(q-1)\cdots(q-k+1)$, extended as zero for $k>q$, and define $a_k=(T)_k/(M)_k$, $b_k=(M-T)_k/(M)_k$, and $L=M-T$. For $u_q(k)=(q)_k/(M)_k$ and $2\leq k\leq K-2$ (when this range is nonempty), direct subtraction gives
+\begin{equation}
+\Delta^2u_q(k)=u_q(k)\frac{(M-q)(M-q-1)}{(M-k)(M-k-1)}\geq0,
+\end{equation}
+including the boundary by zero extension. Hence $c(k)=1-a_k-b_k$ is concave. Adding a fixed group member under a coupled split cannot destroy a crossing, so $c$ is nondecreasing.
+
+For exposure and $2\leq k\leq\min\{T,K-2\}$,
+\begin{equation}
+\Delta^2(ka_k)=a_k\frac{L[k(L+1)-2T]}{(M-k)(M-k-1)}>0,
+\end{equation}
+because $L\geq T+1$ and $k\geq2$; for $k>T$, $ka_k=0$. Thus $e(k)=kT/M-ka_k$ is concave. Its differences equal $T/M>0$ beyond $T$ and, by concavity, are no smaller before $T$, proving strict increase. Finally, for concave $f$ and $x\geq y+2$, balancing changes the sum by $\Delta f(y)-\Delta f(x-1)\geq0$. Repetition yields the balanced maximum; reverse exchanges yield the concentrated minimum \cite{marshall2011}.
+
+A separate exact check sets $E=S-2G$, $D_0(0)=0$, and
+\begin{equation}
+D_g(n)=\underset{0\leq r\leq n}{\operatorname{ext}}
+\{D_{g-1}(n-r)+f(2+r)\},
+\end{equation}
+with separate minima and maxima. This $O(GE^2)$ recurrence enumerates every excess-membership composition rather than relying on the closed-form witness. The artifact executes it for every nonempty Table~II--III configuration and compares it with full enumeration on more than 500 small fibers.
+
+\section{Public Case Study}
+Table~\ref{tab:case} compares known-size expectations with bounds using only $(M,G,S,T)$. Containment is a theorem consequence, so this is deterministic implementation validation, not an empirical hypothesis test. Exact pairwise inclusion--exclusion additionally gives crossing-count standard deviations of \CifarTenCrossSD{} and \CifarHundredCrossSD{} for the known public histograms; variance is not claimed identifiable from the four aggregates. The crossing intervals span 4.46\% and 6.93\% of the known expectations, while exposure intervals span 1.48\% and 2.06\%.
+
+\begin{table*}[t]
+\caption{Known-size values versus sharp aggregate-only bounds. Parentheses give known-size crossing SD.}
+\label{tab:case}
+\centering
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{lrrrr}
+\toprule
+Dataset & Known crossing (SD) & Crossing bounds & Known exposure & Exposure bounds\\
+\midrule
+CIFAR-10 & \CifarTenKnownCross{} (\CifarTenCrossSD) & \CifarTenCrossMin--\CifarTenCrossMax{} & \CifarTenKnownExposed{} & \CifarTenExposedMin--\CifarTenExposedMax{}\\
+CIFAR-100 & \CifarHundredKnownCross{} (\CifarHundredCrossSD) & \CifarHundredCrossMin--\CifarHundredCrossMax{} & \CifarHundredKnownExposed{} & \CifarHundredExposedMin--\CifarHundredExposedMax{}\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:sensitivity} shows that annotation policy dominates hidden-size uncertainty: broadening the operational relation changes CIFAR-100 known crossing from 11.389 to 246.137. Category 0 has no CIFAR-10 edges; the displayed $[0,0]$ interval is an explicit $G=S=0$ convention outside Theorem~1. The result is therefore conditional on the declared graph policy, not robust to an unknown true duplicate relation. As a local one-edge perturbation diagnostic, deleting each published primary-policy edge in turn changes either known expectation by at most \CifarTenEdgeDeletionMaxCross{} for CIFAR-10 and \CifarHundredEdgeDeletionMaxCross{} for CIFAR-100. This does not establish robustness to missing or systematically misclassified relations.
+
+\begin{table*}[t]
+\caption{Policy sensitivity. Each metric is known value / [aggregate minimum, maximum].}
+\label{tab:sensitivity}
+\centering
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrll}
+\toprule
+Dataset & Judgments & $G$ & $S$ & Crossing & Exposure\\
+\midrule
+CIFAR-10 & $\{0\}$ & \CifarTenPZeroGroups{} & \CifarTenPZeroFiles{} & \CifarTenPZeroKnownCross{}/[\CifarTenPZeroCrossMin,\CifarTenPZeroCrossMax] & \CifarTenPZeroKnownExposed{}/[\CifarTenPZeroExposedMin,\CifarTenPZeroExposedMax]\\
+CIFAR-10 & $\{0,1\}$ & \CifarTenPZeroOneGroups{} & \CifarTenPZeroOneFiles{} & \CifarTenPZeroOneKnownCross{}/[\CifarTenPZeroOneCrossMin,\CifarTenPZeroOneCrossMax] & \CifarTenPZeroOneKnownExposed{}/[\CifarTenPZeroOneExposedMin,\CifarTenPZeroOneExposedMax]\\
+CIFAR-10 & $\{0,1,2\}$ & \CifarTenPAllGroups{} & \CifarTenPAllFiles{} & \CifarTenPAllKnownCross{}/[\CifarTenPAllCrossMin,\CifarTenPAllCrossMax] & \CifarTenPAllKnownExposed{}/[\CifarTenPAllExposedMin,\CifarTenPAllExposedMax]\\
+CIFAR-100 & $\{0\}$ & \CifarHundredPZeroGroups{} & \CifarHundredPZeroFiles{} & \CifarHundredPZeroKnownCross{}/[\CifarHundredPZeroCrossMin,\CifarHundredPZeroCrossMax] & \CifarHundredPZeroKnownExposed{}/[\CifarHundredPZeroExposedMin,\CifarHundredPZeroExposedMax]\\
+CIFAR-100 & $\{0,1\}$ & \CifarHundredPZeroOneGroups{} & \CifarHundredPZeroOneFiles{} & \CifarHundredPZeroOneKnownCross{}/[\CifarHundredPZeroOneCrossMin,\CifarHundredPZeroOneCrossMax] & \CifarHundredPZeroOneKnownExposed{}/[\CifarHundredPZeroOneExposedMin,\CifarHundredPZeroOneExposedMax]\\
+CIFAR-100 & $\{0,1,2\}$ & \CifarHundredPAllGroups{} & \CifarHundredPAllFiles{} & \CifarHundredPAllKnownCross{}/[\CifarHundredPAllCrossMin,\CifarHundredPAllCrossMax] & \CifarHundredPAllKnownExposed{}/[\CifarHundredPAllExposedMin,\CifarHundredPAllExposedMax]\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The official splits contain \CifarTenObservedCross/\CifarHundredObservedCross{} crossing components and \CifarTenObservedExposed/\CifarHundredObservedExposed{} exposed test files. Because the annotations and official split are coupled, these observations are descriptive and are not causal comparisons with the random-split model.
+
+\section{Reproducibility, Rights, and Limitations}
+The tagged public artifact is available at \url{https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v7}. It contains the PDF, source, frozen claim JSON, generated cell macros, manifest, code, search log, and tests. The verified environment is Python 3.12.5 with pypdf 6.14.2; the full check exits nonzero on checksum, schema, claim, PDF, manifest, or test failure and is expected to finish within two minutes. Table~\ref{tab:artifact} gives the tested command and exact upstream paths/hashes.
+
+\begin{table*}[t]
+\caption{Copy-pastable artifact command and pinned upstream ciFAIR metadata.}
+\label{tab:artifact}
+\centering
+\begin{tabular}{p{0.32\textwidth}p{0.63\textwidth}}
+\toprule
+\multicolumn{2}{l}{\textbf{Command:} \texttt{python tools/verify\_public\_release\_bundle.py . --cifair-meta cifair/meta}}\\
+\path{meta/duplicates_cifar10.csv} & \begin{tabular}[t]{@{}l@{}}\texttt{4cb7e99a7dfff346082c9d8fa4c2989a}\\\texttt{196e4a37d1e58f75936046696f1ba6a4}\end{tabular}\\
+\path{meta/duplicates_cifar10_test.csv} & \begin{tabular}[t]{@{}l@{}}\texttt{ef7b33e2f32d056cdb342046b437ee81}\\\texttt{9541a07cb3bb0520a3ada9b9c035f532}\end{tabular}\\
+\path{meta/duplicates_cifar100.csv} & \begin{tabular}[t]{@{}l@{}}\texttt{3891498a862f2d73df00cd5dc2ee9ae2}\\\texttt{b6dccf5238691d3c29d9abb12e1c63cb}\end{tabular}\\
+\path{meta/duplicates_cifar100_test.csv} & \begin{tabular}[t]{@{}l@{}}\texttt{78c9d8d17eda11b468a137119ed51f09}\\\texttt{332393d65a6329035e2250888edb2760}\end{tabular}\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The pinned ciFAIR repository exposes no explicit license file for redistributing its metadata. The artifact therefore redistributes neither those CSVs nor CIFAR images; it stores hashes and derived aggregates and requires retrieval from the cited upstream source. Users remain responsible for upstream terms. No identifiable or new human-subject data are included.
+
+The annotation graph omits a train--train census and is retrieval-biased. Missing or added edges may merge components, so neither $G$ nor crossing count is a general lower bound; exposure is monotone only under added relations on a fixed record set. Category 2 and transitive closure are operational choices. Aggregate-only expectations do not identify variance, tail risk, classifier-score inflation, or realized leakage. Publishing $(M,G,S,T)$ is disclosure-limited but provides no formal privacy guarantee.
+
+\section{Conclusion}
+Discrete concavity yields sharp expectation intervals from $(M,G,S,T)$ without memberships, over a wider regime than the initial small-group specialization. The public case study shows narrow allocation uncertainty but large annotation-policy sensitivity. These bounds can support a disclosure-limited audit when memberships cannot be published, but group-aware splitting remains preferable and no causal accuracy or privacy claim follows.
+
+\section*{Acknowledgment}
+OpenAI Codex materially assisted with literature-search synthesis, adversarial review, mathematical/code checking, and drafting and editing throughout the manuscript. The listed author retains responsibility for every claim. Because URTC requires submissions to be the students' full and sole work, eligibility remains contingent on written chair confirmation that this disclosed assistance is permissible.
+
+\bibliographystyle{IEEEtran}
+\bibliography{urtc2026_refs,urtc2026_loop8_refs,urtc2026_loop10_refs}
+\end{document}
