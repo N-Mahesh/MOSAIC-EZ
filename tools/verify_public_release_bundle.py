@@ -10,7 +10,7 @@ import subprocess
 import sys
 
 EXPECTED_FILES = frozenset({
-    "README.md", "LICENSES.md", "LITERATURE_SEARCH.md", "requirements-release.txt", "RELEASE_MANIFEST.sha256",
+    ".gitattributes", "README.md", "LICENSES.md", "LITERATURE_SEARCH.md", "requirements-release.txt", "RELEASE_MANIFEST.sha256",
     "manuscript/urtc2026.tex", "manuscript/urtc2026_refs.bib",
     "manuscript/urtc2026_loop8_refs.bib", "manuscript/urtc2026_loop10_refs.bib",
     "manuscript/generated_cifair_validation.tex", "manuscript/urtc2026.pdf",
