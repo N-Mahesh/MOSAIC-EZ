@@ -33,7 +33,7 @@ REQUIRED_LITERALS = (
     "4c2764277f5fda8fec6784a78c1818eab13236c5",
     "83.573", "80.722", "84.446", "86.097",
     "246.137", "231.559", "248.615", "255.795",
-    "288", "831", "7.617", "12.915", "urtc2026-cifair-v2", *ALLOWED_PUBLIC_SHA256,
+    "288", "831", "7.617", "12.915", "urtc2026-cifair-v3", *ALLOWED_PUBLIC_SHA256,
 )
 FORBIDDEN_LITERALS = {
     "legacy model-centered title": "Leakage-Controlled Facial-Affect Recognition",

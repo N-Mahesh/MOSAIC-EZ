@@ -53,6 +53,10 @@ def files_under(root: Path) -> dict[str, Path]:
     found: dict[str, Path] = {}
     for path in root.rglob("*"):
         rel = path.relative_to(root).as_posix()
+        # A reviewer normally runs this command from a fresh Git clone. Git's
+        # administrative directory is transport metadata, not bundle content.
+        if rel == ".git" or rel.startswith(".git/"):
+            continue
         if path.is_symlink():
             raise ValueError(f"symlink prohibited: {rel}")
         if path.is_file():
