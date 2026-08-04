@@ -1,0 +1,442 @@
+{
+  "datasets": [
+    {
+      "aggregate_only_bounds": {
+        "crossing_groups": [
+          80.721523147827,
+          84.445851875309
+        ],
+        "exposed_test_files": [
+          85.390217614738,
+          86.66796297963
+        ]
+      },
+      "annotated_edge_rows": 325,
+      "annotated_group_count": 288,
+      "annotated_grouped_files": 608,
+      "cap_aware_bounds": {
+        "crossing_groups": [
+          82.688889620325,
+          84.445851875309
+        ],
+        "exposed_test_files": [
+          85.664863607815,
+          86.66796297963
+        ],
+        "maximum_group_size": 8
+      },
+      "dataset": "CIFAR-10",
+      "known_group_size_histogram": {
+        "2": 272,
+        "3": 8,
+        "4": 5,
+        "6": 2,
+        "8": 1
+      },
+      "known_size_expectation": {
+        "crossing_group_standard_deviation": 7.617183646815,
+        "crossing_group_variance": 58.021486709305,
+        "crossing_groups": 83.572778222961,
+        "exposed_test_files": 86.096712152604
+      },
+      "official_split_observation": {
+        "crossing_groups": 268,
+        "exposed_test_files": 289
+      },
+      "official_test_files": 10000,
+      "population": 60000,
+      "single_edge_deletion_sensitivity": {
+        "group_count_range": [
+          287,
+          289
+        ],
+        "grouped_files_range": [
+          606,
+          608
+        ],
+        "known_crossing_range": [
+          83.294995815476,
+          83.748204918702
+        ],
+        "known_exposed_range": [
+          85.818929745119,
+          86.096712152604
+        ],
+        "maximum_absolute_crossing_change": 0.277782407485,
+        "maximum_absolute_exposed_change": 0.277782407485,
+        "omissions_checked": 325
+      }
+    },
+    {
+      "aggregate_only_bounds": {
+        "crossing_groups": [
+          231.559398212143,
+          248.615254698689
+        ],
+        "exposed_test_files": [
+          252.226064878859,
+          257.503699115972
+        ]
+      },
+      "annotated_edge_rows": 995,
+      "annotated_group_count": 831,
+      "annotated_grouped_files": 1790,
+      "cap_aware_bounds": {
+        "crossing_groups": [
+          241.359467548367,
+          248.615254698689
+        ],
+        "exposed_test_files": [
+          253.389449655284,
+          257.503699115972
+        ],
+        "maximum_group_size": 8
+      },
+      "dataset": "CIFAR-100",
+      "known_group_size_histogram": {
+        "2": 752,
+        "3": 51,
+        "4": 17,
+        "5": 4,
+        "6": 5,
+        "7": 1,
+        "8": 1
+      },
+      "known_size_expectation": {
+        "crossing_group_standard_deviation": 12.914984539986,
+        "crossing_group_variance": 166.79682566808,
+        "crossing_groups": 246.137378908647,
+        "exposed_test_files": 255.795196147726
+      },
+      "official_split_observation": {
+        "crossing_groups": 801,
+        "exposed_test_files": 899
+      },
+      "official_test_files": 10000,
+      "population": 60000,
+      "single_edge_deletion_sensitivity": {
+        "group_count_range": [
+          830,
+          832
+        ],
+        "grouped_files_range": [
+          1788,
+          1790
+        ],
+        "known_crossing_range": [
+          245.859596501163,
+          246.403896514225
+        ],
+        "known_exposed_range": [
+          255.517413740242,
+          255.795196147726
+        ],
+        "maximum_absolute_crossing_change": 0.277782407485,
+        "maximum_absolute_exposed_change": 0.277782407485,
+        "omissions_checked": 995
+      }
+    }
+  ],
+  "edge_policy": "union all published judgment categories 0, 1, and 2; train/test node namespaces remain distinct",
+  "file_sha256": {
+    "duplicates_cifar10.csv": "4cb7e99a7dfff346082c9d8fa4c2989a196e4a37d1e58f75936046696f1ba6a4",
+    "duplicates_cifar100.csv": "3891498a862f2d73df00cd5dc2ee9ae2b6dccf5238691d3c29d9abb12e1c63cb",
+    "duplicates_cifar100_test.csv": "78c9d8d17eda11b468a137119ed51f09332393d65a6329035e2250888edb2760",
+    "duplicates_cifar10_test.csv": "ef7b33e2f32d056cdb342046b437ee819541a07cb3bb0520a3ada9b9c035f532"
+  },
+  "policy_sensitivity": [
+    {
+      "datasets": [
+        {
+          "aggregate_only_bounds": {
+            "crossing_groups": [
+              0.0,
+              0.0
+            ],
+            "exposed_test_files": [
+              0.0,
+              0.0
+            ]
+          },
+          "annotated_edge_rows": 0,
+          "annotated_group_count": 0,
+          "annotated_grouped_files": 0,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              0.0,
+              0.0
+            ],
+            "exposed_test_files": [
+              0.0,
+              0.0
+            ],
+            "maximum_group_size": 0
+          },
+          "dataset": "CIFAR-10",
+          "known_group_size_histogram": {},
+          "known_size_expectation": {
+            "crossing_group_standard_deviation": 0.0,
+            "crossing_group_variance": 0.0,
+            "crossing_groups": 0.0,
+            "exposed_test_files": 0.0
+          },
+          "official_split_observation": {
+            "crossing_groups": 0,
+            "exposed_test_files": 0
+          },
+          "official_test_files": 10000,
+          "population": 60000,
+          "single_edge_deletion_sensitivity": null
+        },
+        {
+          "aggregate_only_bounds": {
+            "crossing_groups": [
+              11.389078706867,
+              11.389078706867
+            ],
+            "exposed_test_files": [
+              11.389078706867,
+              11.389078706867
+            ]
+          },
+          "annotated_edge_rows": 41,
+          "annotated_group_count": 41,
+          "annotated_grouped_files": 82,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              11.389078706867,
+              11.389078706867
+            ],
+            "exposed_test_files": [
+              11.389078706867,
+              11.389078706867
+            ],
+            "maximum_group_size": 2
+          },
+          "dataset": "CIFAR-100",
+          "known_group_size_histogram": {
+            "2": 41
+          },
+          "known_size_expectation": {
+            "crossing_group_standard_deviation": 2.866817667956,
+            "crossing_group_variance": 8.218643541307,
+            "crossing_groups": 11.389078706867,
+            "exposed_test_files": 11.389078706867
+          },
+          "official_split_observation": {
+            "crossing_groups": 39,
+            "exposed_test_files": 39
+          },
+          "official_test_files": 10000,
+          "population": 60000,
+          "single_edge_deletion_sensitivity": null
+        }
+      ],
+      "judgments": "{0}"
+    },
+    {
+      "datasets": [
+        {
+          "aggregate_only_bounds": {
+            "crossing_groups": [
+              69.882765990495,
+              72.640099557215
+            ],
+            "exposed_test_files": [
+              73.390037056173,
+              74.376123857465
+            ]
+          },
+          "annotated_edge_rows": 279,
+          "annotated_group_count": 249,
+          "annotated_grouped_files": 523,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              71.630600395907,
+              72.640099557215
+            ],
+            "exposed_test_files": [
+              73.708686553674,
+              74.376123857465
+            ],
+            "maximum_group_size": 6
+          },
+          "dataset": "CIFAR-10",
+          "known_group_size_histogram": {
+            "2": 236,
+            "3": 7,
+            "4": 3,
+            "6": 3
+          },
+          "known_size_expectation": {
+            "crossing_group_standard_deviation": 7.084773847315,
+            "crossing_group_variance": 50.194020467597,
+            "crossing_groups": 72.019611550989,
+            "exposed_test_files": 73.949810298445
+          },
+          "official_split_observation": {
+            "crossing_groups": 234,
+            "exposed_test_files": 251
+          },
+          "official_test_files": 10000,
+          "population": 60000,
+          "single_edge_deletion_sensitivity": null
+        },
+        {
+          "aggregate_only_bounds": {
+            "crossing_groups": [
+              166.280531661174,
+              175.975155141475
+            ],
+            "exposed_test_files": [
+              178.113865786652,
+              181.183228042226
+            ]
+          },
+          "annotated_edge_rows": 695,
+          "annotated_group_count": 596,
+          "annotated_grouped_files": 1267,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              171.754587781994,
+              175.975155141475
+            ],
+            "exposed_test_files": [
+              178.779777405755,
+              181.183228042226
+            ],
+            "maximum_group_size": 8
+          },
+          "dataset": "CIFAR-100",
+          "known_group_size_histogram": {
+            "2": 551,
+            "3": 30,
+            "4": 8,
+            "5": 2,
+            "6": 3,
+            "7": 1,
+            "8": 1
+          },
+          "known_size_expectation": {
+            "crossing_group_standard_deviation": 10.943882967383,
+            "crossing_group_variance": 119.76857440377,
+            "crossing_groups": 174.373891724539,
+            "exposed_test_files": 180.11516503625
+          },
+          "official_split_observation": {
+            "crossing_groups": 566,
+            "exposed_test_files": 625
+          },
+          "official_test_files": 10000,
+          "population": 60000,
+          "single_edge_deletion_sensitivity": null
+        }
+      ],
+      "judgments": "{0,1}"
+    },
+    {
+      "datasets": [
+        {
+          "aggregate_only_bounds": {
+            "crossing_groups": [
+              80.721523147827,
+              84.445851875309
+            ],
+            "exposed_test_files": [
+              85.390217614738,
+              86.66796297963
+            ]
+          },
+          "annotated_edge_rows": 325,
+          "annotated_group_count": 288,
+          "annotated_grouped_files": 608,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              82.688889620325,
+              84.445851875309
+            ],
+            "exposed_test_files": [
+              85.664863607815,
+              86.66796297963
+            ],
+            "maximum_group_size": 8
+          },
+          "dataset": "CIFAR-10",
+          "known_group_size_histogram": {
+            "2": 272,
+            "3": 8,
+            "4": 5,
+            "6": 2,
+            "8": 1
+          },
+          "known_size_expectation": {
+            "crossing_group_standard_deviation": 7.617183646815,
+            "crossing_group_variance": 58.021486709305,
+            "crossing_groups": 83.572778222961,
+            "exposed_test_files": 86.096712152604
+          },
+          "official_split_observation": {
+            "crossing_groups": 268,
+            "exposed_test_files": 289
+          },
+          "official_test_files": 10000,
+          "population": 60000,
+          "single_edge_deletion_sensitivity": null
+        },
+        {
+          "aggregate_only_bounds": {
+            "crossing_groups": [
+              231.559398212143,
+              248.615254698689
+            ],
+            "exposed_test_files": [
+              252.226064878859,
+              257.503699115972
+            ]
+          },
+          "annotated_edge_rows": 995,
+          "annotated_group_count": 831,
+          "annotated_grouped_files": 1790,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              241.359467548367,
+              248.615254698689
+            ],
+            "exposed_test_files": [
+              253.389449655284,
+              257.503699115972
+            ],
+            "maximum_group_size": 8
+          },
+          "dataset": "CIFAR-100",
+          "known_group_size_histogram": {
+            "2": 752,
+            "3": 51,
+            "4": 17,
+            "5": 4,
+            "6": 5,
+            "7": 1,
+            "8": 1
+          },
+          "known_size_expectation": {
+            "crossing_group_standard_deviation": 12.914984539986,
+            "crossing_group_variance": 166.79682566808,
+            "crossing_groups": 246.137378908647,
+            "exposed_test_files": 255.795196147726
+          },
+          "official_split_observation": {
+            "crossing_groups": 801,
+            "exposed_test_files": 899
+          },
+          "official_test_files": 10000,
+          "population": 60000,
+          "single_edge_deletion_sensitivity": null
+        }
+      ],
+      "judgments": "{0,1,2}"
+    }
+  ],
+  "schema_version": 2,
+  "source_commit": "4c2764277f5fda8fec6784a78c1818eab13236c5",
+  "source_repository": "https://github.com/cvjena/cifair"
+}
