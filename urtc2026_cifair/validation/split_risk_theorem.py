@@ -17,11 +17,6 @@ import math
 from pathlib import Path
 
 
-TOTAL_FILES = 2258
-GROUP_COUNT = 103
-GROUPED_FILES = 280
-TEST_FILES = 452
-
 
 @lru_cache(maxsize=None)
 def all_selected_probability(population: int, selected: int, size: int) -> Fraction:
@@ -186,8 +181,9 @@ def theorem_certificate(population: int, test: int, groups: int, total: int) -> 
     }
 
 
-def run_analysis() -> dict[str, object]:
-    return theorem_certificate(TOTAL_FILES, TEST_FILES, GROUP_COUNT, GROUPED_FILES)
+def run_analysis(population: int, test: int, groups: int, total: int) -> dict[str, object]:
+    """Build a certificate for caller-supplied aggregates; no dataset is implicit."""
+    return theorem_certificate(population, test, groups, total)
 
 
 def main() -> int:
@@ -195,8 +191,12 @@ def main() -> int:
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--verify", type=Path)
     mode.add_argument("--output", type=Path)
+    parser.add_argument("--population", type=int, required=True)
+    parser.add_argument("--test", type=int, required=True)
+    parser.add_argument("--groups", type=int, required=True)
+    parser.add_argument("--total", type=int, required=True)
     args = parser.parse_args()
-    result = run_analysis()
+    result = run_analysis(args.population, args.test, args.groups, args.total)
     if args.verify:
         expected = json.loads(args.verify.read_text(encoding="utf-8"))
         if result != expected:

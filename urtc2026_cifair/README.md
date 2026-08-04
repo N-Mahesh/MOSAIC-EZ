@@ -1,7 +1,7 @@
 # Public ciFAIR reproduction bundle
 
 Annotated release tag:
-https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v13
+https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v14
 
 A tag name is not itself content identity. Reviewers should record `git rev-parse HEAD`, verify the annotated tag target, and run the manifest check below. `RELEASE_MANIFEST.sha256` binds every release file except itself.
 
