@@ -1,0 +1,103 @@
+{
+  "datasets": [
+    {
+      "baseline": {
+        "components": 288,
+        "crossing_groups": 83.57277822296082,
+        "exposed_test_files": 86.09671215260394
+      },
+      "dataset": "CIFAR-10",
+      "maximize_exposure_path": [
+        {
+          "crossing_groups": 83.53419874777008,
+          "exposed_test_files": 86.20472912758251,
+          "merger_budget": 1,
+          "remaining_components": 287
+        },
+        {
+          "crossing_groups": 83.18698347105332,
+          "exposed_test_files": 87.17688190238955,
+          "merger_budget": 10,
+          "remaining_components": 278
+        },
+        {
+          "crossing_groups": 82.60829134319208,
+          "exposed_test_files": 88.79713652706795,
+          "merger_budget": 25,
+          "remaining_components": 263
+        }
+      ],
+      "minimize_crossing_path": [
+        {
+          "crossing_groups": 83.06236484681664,
+          "exposed_test_files": 86.09684534445425,
+          "merger_budget": 1,
+          "remaining_components": 287
+        },
+        {
+          "crossing_groups": 78.64005154634594,
+          "exposed_test_files": 86.15405441865387,
+          "merger_budget": 10,
+          "remaining_components": 278
+        },
+        {
+          "crossing_groups": 73.7789905402971,
+          "exposed_test_files": 86.77899076095713,
+          "merger_budget": 25,
+          "remaining_components": 263
+        }
+      ]
+    },
+    {
+      "baseline": {
+        "components": 831,
+        "crossing_groups": 246.13737890864743,
+        "exposed_test_files": 255.7951961477263
+      },
+      "dataset": "CIFAR-100",
+      "maximize_exposure_path": [
+        {
+          "crossing_groups": 246.0987994334567,
+          "exposed_test_files": 255.90321312270487,
+          "merger_budget": 1,
+          "remaining_components": 830
+        },
+        {
+          "crossing_groups": 245.75158415673994,
+          "exposed_test_files": 256.8753658975119,
+          "merger_budget": 10,
+          "remaining_components": 821
+        },
+        {
+          "crossing_groups": 245.1728920288787,
+          "exposed_test_files": 258.4956205221903,
+          "merger_budget": 25,
+          "remaining_components": 806
+        }
+      ],
+      "minimize_crossing_path": [
+        {
+          "crossing_groups": 245.5841087567598,
+          "exposed_test_files": 255.795225861567,
+          "merger_budget": 1,
+          "remaining_components": 830
+        },
+        {
+          "crossing_groups": 239.9314682943893,
+          "exposed_test_files": 255.7984379359209,
+          "merger_budget": 10,
+          "remaining_components": 821
+        },
+        {
+          "crossing_groups": 232.176695280399,
+          "exposed_test_files": 255.84471108670544,
+          "merger_budget": 25,
+          "remaining_components": 806
+        }
+      ]
+    }
+  ],
+  "method": "deterministic size-only greedy merger stress; trajectories are not sharp missing-edge bounds",
+  "schema_version": 1,
+  "sign_certificate": "each merger weakly decreases expected crossing-component count and weakly increases expected exposure"
+}
