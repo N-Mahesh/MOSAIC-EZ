@@ -1,0 +1,1232 @@
+{
+  "boundary_certificate": "attaching a singleton or linking two singletons increases both expected crossing count and exposure",
+  "datasets": [
+    {
+      "baseline": {
+        "components": 288,
+        "crossing_groups": 83.57277822296082,
+        "exposed_test_files": 86.09671215260394
+      },
+      "dataset": "CIFAR-10",
+      "maximize_exposure_path": [
+        {
+          "crossing_groups": 83.53419874777008,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.20472912758251,
+          "merger_budget": 1,
+          "remaining_components": 287,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.49561927257932,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.31274610256106,
+          "merger_budget": 2,
+          "remaining_components": 286,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.45703979738857,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.42076307753963,
+          "merger_budget": 3,
+          "remaining_components": 285,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.41846032219783,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.52878005251819,
+          "merger_budget": 4,
+          "remaining_components": 284,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.37988084700707,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.63679702749675,
+          "merger_budget": 5,
+          "remaining_components": 283,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.34130137181633,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.74481400247531,
+          "merger_budget": 6,
+          "remaining_components": 282,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.30272189662557,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.85283097745386,
+          "merger_budget": 7,
+          "remaining_components": 281,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.26414242143483,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 86.96084795243243,
+          "merger_budget": 8,
+          "remaining_components": 280,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.22556294624408,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.06886492741098,
+          "merger_budget": 9,
+          "remaining_components": 279,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.18698347105332,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.17688190238955,
+          "merger_budget": 10,
+          "remaining_components": 278,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.14840399586258,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.28489887736811,
+          "merger_budget": 11,
+          "remaining_components": 277,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.10982452067182,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.39291585234668,
+          "merger_budget": 12,
+          "remaining_components": 276,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.07124504548108,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.50093282732523,
+          "merger_budget": 13,
+          "remaining_components": 275,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 83.03266557029033,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.60894980230378,
+          "merger_budget": 14,
+          "remaining_components": 274,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.99408609509958,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.71696677728235,
+          "merger_budget": 15,
+          "remaining_components": 273,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.95550661990883,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.8249837522609,
+          "merger_budget": 16,
+          "remaining_components": 272,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.91692714471807,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 87.93300072723947,
+          "merger_budget": 17,
+          "remaining_components": 271,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.87834766952733,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.04101770221803,
+          "merger_budget": 18,
+          "remaining_components": 270,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.83976819433659,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.1490346771966,
+          "merger_budget": 19,
+          "remaining_components": 269,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.80118871914583,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.25705165217515,
+          "merger_budget": 20,
+          "remaining_components": 268,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.76260924395508,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.3650686271537,
+          "merger_budget": 21,
+          "remaining_components": 267,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.72402976876434,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.47308560213227,
+          "merger_budget": 22,
+          "remaining_components": 266,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.68545029357358,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.58110257711083,
+          "merger_budget": 23,
+          "remaining_components": 265,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.64687081838284,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.6891195520894,
+          "merger_budget": 24,
+          "remaining_components": 264,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 82.60829134319208,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 88.79713652706795,
+          "merger_budget": 25,
+          "remaining_components": 263,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        }
+      ],
+      "minimize_crossing_path": [
+        {
+          "crossing_groups": 83.06236484681664,
+          "delta_crossing_groups": -0.5104133761441879,
+          "delta_exposed_test_files": 0.00013319185030722178,
+          "exposed_test_files": 86.09684534445425,
+          "merger_budget": 1,
+          "remaining_components": 287,
+          "selected_component_sizes": [
+            6,
+            8
+          ]
+        },
+        {
+          "crossing_groups": 82.44906288981105,
+          "delta_crossing_groups": -0.6133019570055941,
+          "delta_exposed_test_files": 0.0001284403153918472,
+          "exposed_test_files": 86.09697378476965,
+          "merger_budget": 2,
+          "remaining_components": 286,
+          "selected_component_sizes": [
+            6,
+            14
+          ]
+        },
+        {
+          "crossing_groups": 81.94557754030485,
+          "delta_crossing_groups": -0.5034853495061848,
+          "delta_exposed_test_files": 0.003084876718973572,
+          "exposed_test_files": 86.10005866148862,
+          "merger_budget": 3,
+          "remaining_components": 285,
+          "selected_component_sizes": [
+            4,
+            20
+          ]
+        },
+        {
+          "crossing_groups": 81.43510106913017,
+          "delta_crossing_groups": -0.5104764711746927,
+          "delta_exposed_test_files": 0.0030848767189681973,
+          "exposed_test_files": 86.10314353820759,
+          "merger_budget": 4,
+          "remaining_components": 284,
+          "selected_component_sizes": [
+            4,
+            24
+          ]
+        },
+        {
+          "crossing_groups": 80.92125373970316,
+          "delta_crossing_groups": -0.5138473294269996,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 86.10622841492656,
+          "merger_budget": 5,
+          "remaining_components": 283,
+          "selected_component_sizes": [
+            4,
+            28
+          ]
+        },
+        {
+          "crossing_groups": 80.40578119483449,
+          "delta_crossing_groups": -0.5154725448686671,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 86.10931329164552,
+          "merger_budget": 6,
+          "remaining_components": 282,
+          "selected_component_sizes": [
+            4,
+            32
+          ]
+        },
+        {
+          "crossing_groups": 79.88952511531781,
+          "delta_crossing_groups": -0.5162560795166817,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 86.11239816836449,
+          "merger_budget": 7,
+          "remaining_components": 281,
+          "selected_component_sizes": [
+            4,
+            36
+          ]
+        },
+        {
+          "crossing_groups": 79.47313756119789,
+          "delta_crossing_groups": -0.4163875541199297,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.12628358512762,
+          "merger_budget": 8,
+          "remaining_components": 280,
+          "selected_component_sizes": [
+            3,
+            40
+          ]
+        },
+        {
+          "crossing_groups": 79.05662943119168,
+          "delta_crossing_groups": -0.41650813000620557,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.14016900189074,
+          "merger_budget": 9,
+          "remaining_components": 279,
+          "selected_component_sizes": [
+            3,
+            43
+          ]
+        },
+        {
+          "crossing_groups": 78.64005154634594,
+          "delta_crossing_groups": -0.41657788484572966,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.15405441865387,
+          "merger_budget": 10,
+          "remaining_components": 278,
+          "selected_component_sizes": [
+            3,
+            46
+          ]
+        },
+        {
+          "crossing_groups": 78.22343330856063,
+          "delta_crossing_groups": -0.41661823778532,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.16793983541699,
+          "merger_budget": 11,
+          "remaining_components": 277,
+          "selected_component_sizes": [
+            3,
+            49
+          ]
+        },
+        {
+          "crossing_groups": 77.80679172743716,
+          "delta_crossing_groups": -0.4166415811234775,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.18182525218012,
+          "merger_budget": 12,
+          "remaining_components": 276,
+          "selected_component_sizes": [
+            3,
+            52
+          ]
+        },
+        {
+          "crossing_groups": 77.39013664308274,
+          "delta_crossing_groups": -0.41665508435440446,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.19571066894324,
+          "merger_budget": 13,
+          "remaining_components": 275,
+          "selected_component_sizes": [
+            3,
+            55
+          ]
+        },
+        {
+          "crossing_groups": 76.97347374785895,
+          "delta_crossing_groups": -0.41666289522380295,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.20959608570637,
+          "merger_budget": 14,
+          "remaining_components": 274,
+          "selected_component_sizes": [
+            3,
+            58
+          ]
+        },
+        {
+          "crossing_groups": 76.55680633461665,
+          "delta_crossing_groups": -0.41666741324229495,
+          "delta_exposed_test_files": 0.013885416763124036,
+          "exposed_test_files": 86.22348150246948,
+          "merger_budget": 15,
+          "remaining_components": 273,
+          "selected_component_sizes": [
+            3,
+            61
+          ]
+        },
+        {
+          "crossing_groups": 76.27902652725776,
+          "delta_crossing_groups": -0.27777980735889907,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.27903242831825,
+          "merger_budget": 16,
+          "remaining_components": 272,
+          "selected_component_sizes": [
+            2,
+            64
+          ]
+        },
+        {
+          "crossing_groups": 76.00124592469358,
+          "delta_crossing_groups": -0.27778060256417414,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.33458335416701,
+          "merger_budget": 17,
+          "remaining_components": 271,
+          "selected_component_sizes": [
+            2,
+            66
+          ]
+        },
+        {
+          "crossing_groups": 75.72346477010771,
+          "delta_crossing_groups": -0.2777811545858604,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.39013428001577,
+          "merger_budget": 18,
+          "remaining_components": 270,
+          "selected_component_sizes": [
+            2,
+            68
+          ]
+        },
+        {
+          "crossing_groups": 75.44568323232033,
+          "delta_crossing_groups": -0.27778153778738013,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.44568520586454,
+          "merger_budget": 19,
+          "remaining_components": 269,
+          "selected_component_sizes": [
+            2,
+            70
+          ]
+        },
+        {
+          "crossing_groups": 75.1679014285263,
+          "delta_crossing_groups": -0.2777818037940351,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.50123613171331,
+          "merger_budget": 20,
+          "remaining_components": 268,
+          "selected_component_sizes": [
+            2,
+            72
+          ]
+        },
+        {
+          "crossing_groups": 74.89011944008114,
+          "delta_crossing_groups": -0.277781988445168,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.55678705756208,
+          "merger_budget": 21,
+          "remaining_components": 267,
+          "selected_component_sizes": [
+            2,
+            74
+          ]
+        },
+        {
+          "crossing_groups": 74.61233732346028,
+          "delta_crossing_groups": -0.2777821166208527,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.61233798341084,
+          "merger_budget": 22,
+          "remaining_components": 266,
+          "selected_component_sizes": [
+            2,
+            76
+          ]
+        },
+        {
+          "crossing_groups": 74.3345551178674,
+          "delta_crossing_groups": -0.2777822055928849,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.6678889092596,
+          "merger_budget": 23,
+          "remaining_components": 265,
+          "selected_component_sizes": [
+            2,
+            78
+          ]
+        },
+        {
+          "crossing_groups": 74.05677285051618,
+          "delta_crossing_groups": -0.2777822673512184,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.72343983510837,
+          "merger_budget": 24,
+          "remaining_components": 264,
+          "selected_component_sizes": [
+            2,
+            80
+          ]
+        },
+        {
+          "crossing_groups": 73.7789905402971,
+          "delta_crossing_groups": -0.27778231021908006,
+          "delta_exposed_test_files": 0.05555092584876414,
+          "exposed_test_files": 86.77899076095713,
+          "merger_budget": 25,
+          "remaining_components": 263,
+          "selected_component_sizes": [
+            2,
+            82
+          ]
+        }
+      ]
+    },
+    {
+      "baseline": {
+        "components": 831,
+        "crossing_groups": 246.13737890864743,
+        "exposed_test_files": 255.7951961477263
+      },
+      "dataset": "CIFAR-100",
+      "maximize_exposure_path": [
+        {
+          "crossing_groups": 246.0987994334567,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 255.90321312270487,
+          "merger_budget": 1,
+          "remaining_components": 830,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 246.06021995826595,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.01123009768344,
+          "merger_budget": 2,
+          "remaining_components": 829,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 246.0216404830752,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.119247072662,
+          "merger_budget": 3,
+          "remaining_components": 828,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.98306100788446,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.2272640476405,
+          "merger_budget": 4,
+          "remaining_components": 827,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.9444815326937,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.3352810226191,
+          "merger_budget": 5,
+          "remaining_components": 826,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.90590205750294,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.44329799759765,
+          "merger_budget": 6,
+          "remaining_components": 825,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.8673225823122,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.5513149725762,
+          "merger_budget": 7,
+          "remaining_components": 824,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.82874310712145,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.6593319475548,
+          "merger_budget": 8,
+          "remaining_components": 823,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.7901636319307,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.76734892253336,
+          "merger_budget": 9,
+          "remaining_components": 822,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.75158415673994,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.8753658975119,
+          "merger_budget": 10,
+          "remaining_components": 821,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.7130046815492,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 256.98338287249044,
+          "merger_budget": 11,
+          "remaining_components": 820,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.67442520635845,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.091399847469,
+          "merger_budget": 12,
+          "remaining_components": 819,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.6358457311677,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.1994168224476,
+          "merger_budget": 13,
+          "remaining_components": 818,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.59726625597696,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.30743379742614,
+          "merger_budget": 14,
+          "remaining_components": 817,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.5586867807862,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.4154507724047,
+          "merger_budget": 15,
+          "remaining_components": 816,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.52010730559545,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.5234677473833,
+          "merger_budget": 16,
+          "remaining_components": 815,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.4815278304047,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.63148472236185,
+          "merger_budget": 17,
+          "remaining_components": 814,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.44294835521396,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.73950169734036,
+          "merger_budget": 18,
+          "remaining_components": 813,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.4043688800232,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.8475186723189,
+          "merger_budget": 19,
+          "remaining_components": 812,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.36578940483244,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 257.9555356472975,
+          "merger_budget": 20,
+          "remaining_components": 811,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.3272099296417,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 258.06355262227606,
+          "merger_budget": 21,
+          "remaining_components": 810,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.28863045445095,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 258.17156959725463,
+          "merger_budget": 22,
+          "remaining_components": 809,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.2500509792602,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 258.2795865722332,
+          "merger_budget": 23,
+          "remaining_components": 808,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.21147150406946,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 258.38760354721177,
+          "merger_budget": 24,
+          "remaining_components": 807,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        },
+        {
+          "crossing_groups": 245.1728920288787,
+          "delta_crossing_groups": -0.03857947519074953,
+          "delta_exposed_test_files": 0.1080169749785601,
+          "exposed_test_files": 258.4956205221903,
+          "merger_budget": 25,
+          "remaining_components": 806,
+          "selected_component_sizes": [
+            2,
+            2
+          ]
+        }
+      ],
+      "minimize_crossing_path": [
+        {
+          "crossing_groups": 245.5841087567598,
+          "delta_crossing_groups": -0.5532701518876281,
+          "delta_exposed_test_files": 2.9713840702836904e-05,
+          "exposed_test_files": 255.795225861567,
+          "merger_budget": 1,
+          "remaining_components": 830,
+          "selected_component_sizes": [
+            7,
+            8
+          ]
+        },
+        {
+          "crossing_groups": 244.96217265217675,
+          "delta_crossing_groups": -0.6219361045830614,
+          "delta_exposed_test_files": 0.00012844016971782336,
+          "exposed_test_files": 255.79535430173672,
+          "merger_budget": 2,
+          "remaining_components": 829,
+          "selected_component_sizes": [
+            6,
+            15
+          ]
+        },
+        {
+          "crossing_groups": 244.3115257211661,
+          "delta_crossing_groups": -0.6506469310106529,
+          "delta_exposed_test_files": 0.0001284401380954512,
+          "exposed_test_files": 255.79548274187482,
+          "merger_budget": 3,
+          "remaining_components": 828,
+          "selected_component_sizes": [
+            6,
+            21
+          ]
+        },
+        {
+          "crossing_groups": 243.65126579646852,
+          "delta_crossing_groups": -0.6602599246975807,
+          "delta_exposed_test_files": 0.00012844013809451058,
+          "exposed_test_files": 255.79561118201292,
+          "merger_budget": 4,
+          "remaining_components": 827,
+          "selected_component_sizes": [
+            6,
+            27
+          ]
+        },
+        {
+          "crossing_groups": 242.98778762406656,
+          "delta_crossing_groups": -0.6634781724019799,
+          "delta_exposed_test_files": 0.00012844013809451055,
+          "exposed_test_files": 255.79573962215102,
+          "merger_budget": 5,
+          "remaining_components": 826,
+          "selected_component_sizes": [
+            6,
+            33
+          ]
+        },
+        {
+          "crossing_groups": 242.3232321728599,
+          "delta_crossing_groups": -0.6645554512066523,
+          "delta_exposed_test_files": 0.00012844013809451055,
+          "exposed_test_files": 255.7958680622891,
+          "merger_budget": 6,
+          "remaining_components": 825,
+          "selected_component_sizes": [
+            6,
+            39
+          ]
+        },
+        {
+          "crossing_groups": 241.72538793263476,
+          "delta_crossing_groups": -0.5978442402251359,
+          "delta_exposed_test_files": 0.000642468407952323,
+          "exposed_test_files": 255.79651053069705,
+          "merger_budget": 7,
+          "remaining_components": 824,
+          "selected_component_sizes": [
+            5,
+            45
+          ]
+        },
+        {
+          "crossing_groups": 241.12744609662104,
+          "delta_crossing_groups": -0.5979418360137018,
+          "delta_exposed_test_files": 0.000642468407952323,
+          "exposed_test_files": 255.797152999105,
+          "merger_budget": 8,
+          "remaining_components": 823,
+          "selected_component_sizes": [
+            5,
+            50
+          ]
+        },
+        {
+          "crossing_groups": 240.5294650653958,
+          "delta_crossing_groups": -0.5979810312252342,
+          "delta_exposed_test_files": 0.000642468407952323,
+          "exposed_test_files": 255.79779546751297,
+          "merger_budget": 9,
+          "remaining_components": 822,
+          "selected_component_sizes": [
+            5,
+            55
+          ]
+        },
+        {
+          "crossing_groups": 239.9314682943893,
+          "delta_crossing_groups": -0.5979967710065078,
+          "delta_exposed_test_files": 0.000642468407952323,
+          "exposed_test_files": 255.7984379359209,
+          "merger_budget": 10,
+          "remaining_components": 821,
+          "selected_component_sizes": [
+            5,
+            60
+          ]
+        },
+        {
+          "crossing_groups": 239.4144866247443,
+          "delta_crossing_groups": -0.5169816696450104,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8015228126399,
+          "merger_budget": 11,
+          "remaining_components": 820,
+          "selected_component_sizes": [
+            4,
+            65
+          ]
+        },
+        {
+          "crossing_groups": 238.89750305341641,
+          "delta_crossing_groups": -0.5169835713278842,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.80460768935885,
+          "merger_budget": 12,
+          "remaining_components": 819,
+          "selected_component_sizes": [
+            4,
+            69
+          ]
+        },
+        {
+          "crossing_groups": 238.38051856571877,
+          "delta_crossing_groups": -0.5169844876976438,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8076925660778,
+          "merger_budget": 13,
+          "remaining_components": 818,
+          "selected_component_sizes": [
+            4,
+            73
+          ]
+        },
+        {
+          "crossing_groups": 237.86353363647083,
+          "delta_crossing_groups": -0.5169849292479435,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8107774427968,
+          "merger_budget": 14,
+          "remaining_components": 817,
+          "selected_component_sizes": [
+            4,
+            77
+          ]
+        },
+        {
+          "crossing_groups": 237.34654849447443,
+          "delta_crossing_groups": -0.5169851419963895,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.81386231951575,
+          "merger_budget": 15,
+          "remaining_components": 816,
+          "selected_component_sizes": [
+            4,
+            81
+          ]
+        },
+        {
+          "crossing_groups": 236.82956324997676,
+          "delta_crossing_groups": -0.5169852444976919,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8169471962347,
+          "merger_budget": 16,
+          "remaining_components": 815,
+          "selected_component_sizes": [
+            4,
+            85
+          ]
+        },
+        {
+          "crossing_groups": 236.31257795609702,
+          "delta_crossing_groups": -0.5169852938797449,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8200320729537,
+          "merger_budget": 17,
+          "remaining_components": 814,
+          "selected_component_sizes": [
+            4,
+            89
+          ]
+        },
+        {
+          "crossing_groups": 235.79559263842773,
+          "delta_crossing_groups": -0.5169853176692643,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.82311694967265,
+          "merger_budget": 18,
+          "remaining_components": 813,
+          "selected_component_sizes": [
+            4,
+            93
+          ]
+        },
+        {
+          "crossing_groups": 235.27860730929862,
+          "delta_crossing_groups": -0.5169853291291149,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8262018263916,
+          "merger_budget": 19,
+          "remaining_components": 812,
+          "selected_component_sizes": [
+            4,
+            97
+          ]
+        },
+        {
+          "crossing_groups": 234.7616219746494,
+          "delta_crossing_groups": -0.5169853346492411,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8292867031106,
+          "merger_budget": 20,
+          "remaining_components": 811,
+          "selected_component_sizes": [
+            4,
+            101
+          ]
+        },
+        {
+          "crossing_groups": 234.24463663734127,
+          "delta_crossing_groups": -0.5169853373081033,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.83237157982956,
+          "merger_budget": 21,
+          "remaining_components": 810,
+          "selected_component_sizes": [
+            4,
+            105
+          ]
+        },
+        {
+          "crossing_groups": 233.72765129875256,
+          "delta_crossing_groups": -0.5169853385887205,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.83545645654854,
+          "merger_budget": 22,
+          "remaining_components": 809,
+          "selected_component_sizes": [
+            4,
+            109
+          ]
+        },
+        {
+          "crossing_groups": 233.21066595954707,
+          "delta_crossing_groups": -0.5169853392054855,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.8385413332675,
+          "merger_budget": 23,
+          "remaining_components": 808,
+          "selected_component_sizes": [
+            4,
+            113
+          ]
+        },
+        {
+          "crossing_groups": 232.69368062004455,
+          "delta_crossing_groups": -0.5169853395025131,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.84162620998646,
+          "merger_budget": 24,
+          "remaining_components": 807,
+          "selected_component_sizes": [
+            4,
+            117
+          ]
+        },
+        {
+          "crossing_groups": 232.176695280399,
+          "delta_crossing_groups": -0.5169853396455508,
+          "delta_exposed_test_files": 0.0030848767189681926,
+          "exposed_test_files": 255.84471108670544,
+          "merger_budget": 25,
+          "remaining_components": 806,
+          "selected_component_sizes": [
+            4,
+            121
+          ]
+        }
+      ]
+    }
+  ],
+  "method": "deterministic size-only greedy merger stress with every selected size pair recorded; trajectories are not sharp missing-edge bounds",
+  "schema_version": 1,
+  "sign_certificate": "merging two non-singleton components weakly decreases expected crossing count and weakly increases exposure"
+}
