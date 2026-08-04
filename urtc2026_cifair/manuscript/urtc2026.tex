@@ -34,7 +34,7 @@ data leakage, duplicate clusters, partial identification, finite-population samp
 \end{IEEEkeywords}
 
 \section{Introduction}
-Train--test overlap can bias evaluation and destabilize model comparisons \cite{kapoor2023,northcutt2021}. Duplicate audits have documented overlap and quantified its evaluation impact in CIFAR and face datasets \cite{barz2020,schlett2024}, while recent visual audits scale retrieval to large benchmarks \cite{ramos2025,adimoolam2026}. Group-aware splitting is preferable when memberships are available, but restricted datasets may prohibit their disclosure.
+Train--test overlap can bias evaluation \cite{kapoor2023}. Separately, label errors can destabilize benchmark comparisons \cite{northcutt2021}. Duplicate audits have documented overlap and quantified its evaluation impact in CIFAR and face datasets \cite{barz2020,schlett2024}, while recent visual audits scale retrieval to large benchmarks \cite{ramos2025,adimoolam2026}. Group-aware splitting is preferable when memberships are available, but restricted datasets may prohibit their disclosure.
 
 This paper asks: \emph{What split leakage is identifiable when only $(M,G,S,T)$ may be published?} Its contributions are: (1) sharp expectation extrema over every hidden group-size allocation, including an optional maximum-size disclosure refinement; (2) an exact allocation dynamic program and a regime-wide certificate-utility study; and (3) a reproducible implementation illustration on split-conditioned ciFAIR metadata, with annotation-policy, deletion, and component-merger sensitivity. The estimand is a counterfactual uniform fixed-size split, not classifier degradation.
 
@@ -93,7 +93,7 @@ Out-of-range binomial coefficients are zero. Let $K=S-2(G-1)$ be the largest fea
 \noindent\emph{Theorem 1.} (a) For every $1\leq T<M$, $c(k)$ is nondecreasing and discrete-concave on $2\leq k\leq K$. (b) If $T\leq(M-1)/2$, $e(k)$ is strictly increasing and discrete-concave on the same domain; no $K\leq T$ condition is needed. Consequently, the stated extrema hold for $\sum_i c(k_i)$ always and for $\sum_i e(k_i)$ under condition (b): each is minimized by $(K,2,\ldots,2)$ and maximized by group sizes differing by at most one.
 
 \noindent\emph{Corollary 1 (optional size cap).} If an auditor additionally discloses $2\leq k_i\leq H$ with $S\leq GH$ and $H>2$, write $E=S-2G=q(H-2)+r$, $0\leq r<H-2$. The balanced allocation remains the sharp maximum, while the sharp minimum has $q$ groups of size $H$, one of size $2+r$ when $r>0$, and all others of size 2. (For $H=2$, feasibility forces all groups to size 2.) This follows by the same reverse exchanges, stopped at the cap.
-\noindent\emph{Proof.} Write $(q)_k=q(q-1)\cdots(q-k+1)$, extended as zero for $k>q$, and define $a_k=(T)_k/(M)_k$, $b_k=(M-T)_k/(M)_k$, and $L=M-T$. For $u_q(k)=(q)_k/(M)_k$ and $2\leq k\leq K-2$ (when this range is nonempty), direct subtraction gives
+\noindent\emph{Proof of Theorem 1 and Corollary 1.} Write $(q)_k=q(q-1)\cdots(q-k+1)$, extended as zero for $k>q$, and define $a_k=(T)_k/(M)_k$, $b_k=(M-T)_k/(M)_k$, and $L=M-T$. For $u_q(k)=(q)_k/(M)_k$ and $2\leq k\leq K-2$ (when this range is nonempty), direct subtraction gives
 \begin{equation}
 \Delta^2u_q(k)=u_q(k)\frac{(M-q)(M-q-1)}{(M-k)(M-k-1)}\geq0,
 \end{equation}
@@ -175,7 +175,7 @@ CIFAR-100 & $\{0,1,2\}$ & \CifarHundredPAllGroups{} & \CifarHundredPAllFiles{} &
 \end{table*}
 
 
-\noindent\emph{Proposition 2 (missing-edge taxonomy).} Merging observed components of sizes $a,b\geq2$ gives $\delta_c=c(a+b)-c(a)-c(b)\leq0$ and $\delta_e=e(a+b)-e(a)-e(b)\geq0$. In contrast, attaching a residual singleton to a size-$a$ component changes the metrics by $c(a+1)-c(a)\geq0$ and $e(a+1)-e(a)\geq0$; linking two residual singletons creates $c(2),e(2)>0$. Thus graph incompleteness has no single conservative direction. For the first crossing sign, swap one fixed record from each opposite-pure component to inject those splits into distinct both-cross splits. The remaining signs follow pointwise: adding relations cannot destroy a crossing or remove a training partner, while merging two already-counted components can reduce their count.
+\noindent\emph{Proposition 2 (missing-edge taxonomy).} Merging observed components of sizes $a,b\geq2$ gives $\delta_c=c(a+b)-c(a)-c(b)\leq0$ and $\delta_e=e(a+b)-e(a)-e(b)\geq0$. In contrast, attaching a residual singleton to a size-$a$ component changes the metrics by $c(a+1)-c(a)\geq0$ and $e(a+1)-e(a)\geq0$; linking two residual singletons creates $c(2),e(2)>0$. Thus graph incompleteness has no single conservative direction. For disjoint components $A,B$, $\delta_c=\Pr(O)-\Pr(H)$, where $O$ is the event that $A,B$ are opposite-pure and $H$ the event that both cross. Fix $x\in A,y\in B$: swapping their split assignments maps $O$ injectively into $H$, preserves test size, and is inverted by the same swap, proving the first sign. The remaining signs follow pointwise: adding relations cannot destroy a crossing or remove a training partner, while merging two already-counted components can reduce their count.
 
 Table~\ref{tab:mergers} quantifies one bounded existing-component-merger scenario under budgets 1, 10, and 25. Separate greedy paths choose the largest crossing decrease or exposure increase at each step; every selected size pair is frozen in the artifact. These are not joint cells, sharp missing-edge bounds, or merger-likelihood models.
 
@@ -199,7 +199,7 @@ CIFAR-100 & Cross. drop & \CifarHundredMergeOneCrossDrop & \CifarHundredMergeTen
 The official splits contain \CifarTenObservedCross/\CifarHundredObservedCross{} crossing components and \CifarTenObservedExposed/\CifarHundredObservedExposed{} exposed test files. Because the annotations and official split are coupled, these observations are descriptive and are not causal comparisons with the random-split model.
 
 \section{Reproducibility, Rights, and Limitations}
-The tagged public artifact is available at \url{https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v14}. It contains the PDF, source, frozen claim JSON, generated cell macros, manifest, code, search log, and tests. The verified environment is Python 3.12.5 with pypdf 6.14.2; the full check exits nonzero on checksum, schema, claim, PDF, manifest, source-rebuild, or test failure and took 135 seconds on the source workstation. Table~\ref{tab:artifact} gives the tested command and exact upstream paths/hashes.
+The tagged public artifact is available at \url{https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v15}. It contains the PDF, source, frozen claim JSON, generated cell macros, manifest, code, search log, and tests. The verified environment is Python 3.12.5 with pypdf 6.14.2; the full check exits nonzero on checksum, schema, claim, PDF, manifest, source-rebuild, or test failure and took 135 seconds on the source workstation. Table~\ref{tab:artifact} gives the tested command and exact upstream paths/hashes.
 
 \begin{table*}[t]
 \caption{Artifact command and pinned upstream ciFAIR metadata.}
@@ -227,7 +227,7 @@ Discrete concavity yields sharp expectation intervals from $(M,G,S,T)$ without m
 \section*{Acknowledgment}
 OpenAI Codex materially assisted with literature-search synthesis, adversarial review, mathematical/code checking, and drafting and editing throughout the manuscript. The listed author retains responsibility for every claim. Because URTC requires submissions to be the students' full and sole work, eligibility remains contingent on written chair confirmation that this disclosed assistance is permissible.
 
-\IEEEtriggeratref{12}
+\IEEEtriggeratref{9}
 \bibliographystyle{IEEEtran}
 \bibliography{urtc2026}
 \end{document}

@@ -1,7 +1,7 @@
-# Public ciFAIR reproduction bundle
+# Public ciFAIR reproduction recipe and verification bundle
 
 Annotated release tag:
-https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v14
+https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v15
 
 A tag name is not itself content identity. Reviewers should record `git rev-parse HEAD`, verify the annotated tag target, and run the manifest check below. `RELEASE_MANIFEST.sha256` binds every release file except itself.
 
@@ -21,6 +21,6 @@ Standalone source-to-PDF check in the documented TeX environment:
 
     python tools/build_manuscript.py .
 
-Success ends with `PASS: exact public reproduction bundle verified.` Any manifest, PDF, checksum, schema, frozen-claim, macro, ledger, utility-study, merger-study, metadata, source-rebuild, or test mismatch exits nonzero. The bundle contains no CIFAR images or upstream annotation CSVs, so full empirical reproduction is explicitly network-dependent.
+Success ends with `PASS: public release bundle and reproduction recipe verified.` Any manifest, PDF, checksum, schema, frozen-claim, macro, ledger, utility-study, merger-study, metadata, source-rebuild, or test mismatch exits nonzero. The bundle contains no CIFAR images or upstream annotation CSVs, so full empirical reproduction is explicitly network-dependent.
 
 Current venue-format reference: https://urtc.mit.edu/paper_submission_2026.pdf . Technical verification does not determine conference eligibility. Written URTC guidance is still required for the disclosed AI assistance.

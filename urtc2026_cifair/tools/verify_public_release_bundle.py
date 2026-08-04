@@ -171,7 +171,7 @@ def main() -> int:
     for report in reports:
         if report:
             print(report)
-    print("PASS: exact public reproduction bundle verified.")
+    print("PASS: public release bundle and reproduction recipe verified.")
     return 0
 
 
