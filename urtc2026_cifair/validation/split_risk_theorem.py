@@ -46,11 +46,80 @@ def exposed_expectation(population: int, test: int, size: int) -> Fraction:
     )
 
 
+@lru_cache(maxsize=None)
+def allocation_dp_extrema(
+    function, population: int, test: int, groups: int, total: int, maximum_size: int | None = None
+) -> tuple[Fraction, Fraction]:
+    """Enumerate the aggregate fiber by the paper's O(GE^2) recurrence."""
+    if groups < 1 or total < 2 * groups:
+        raise ValueError("infeasible group aggregates")
+    if function not in (crossing_probability, exposed_expectation):
+        raise ValueError("dynamic program supports the two theorem functionals")
+
+    def choose_or_zero(n: int, r: int) -> int:
+        return 0 if r < 0 or r > n else math.comb(n, r)
+
+    # Every per-group value has denominator C(M,T). Keeping only integer
+    # numerators makes the exact DP fast even for the public CIFAR-100 fiber.
+    denominator = math.comb(population, test)
+    test_member_numerator = math.comb(population - 1, test - 1)
+    excess = total - 2 * groups
+    maximum_added = excess if maximum_size is None else maximum_size - 2
+    if maximum_added < 0 or excess > groups * maximum_added:
+        raise ValueError("maximum group size is incompatible with the aggregates")
+    values = []
+    for added in range(maximum_added + 1):
+        size = 2 + added
+        all_train = choose_or_zero(population - size, test)
+        all_test = choose_or_zero(population - size, test - size)
+        if function is crossing_probability:
+            values.append(denominator - all_train - all_test)
+        else:
+            values.append(size * (test_member_numerator - all_test))
+
+    previous: list[tuple[int | None, int | None]] = [(None, None)] * (excess + 1)
+    previous[0] = (0, 0)
+    for _ in range(groups):
+        current: list[tuple[int | None, int | None]] = [(None, None)] * (excess + 1)
+        for used in range(excess + 1):
+            minimum = maximum = None
+            for added in range(min(used, maximum_added) + 1):
+                prior_minimum, prior_maximum = previous[used - added]
+                if prior_minimum is None or prior_maximum is None:
+                    continue
+                candidate_minimum = prior_minimum + values[added]
+                candidate_maximum = prior_maximum + values[added]
+                minimum = candidate_minimum if minimum is None else min(minimum, candidate_minimum)
+                maximum = candidate_maximum if maximum is None else max(maximum, candidate_maximum)
+            current[used] = (minimum, maximum)
+        previous = current
+    minimum, maximum = previous[excess]
+    if minimum is None or maximum is None:
+        raise AssertionError("dynamic program did not reach the requested aggregate")
+    return Fraction(minimum, denominator), Fraction(maximum, denominator)
+
 def concentrated_allocation(groups: int, total: int) -> tuple[int, ...]:
     if groups < 1 or total < 2 * groups:
         raise ValueError("infeasible group aggregates")
     return tuple([2] * (groups - 1) + [total - 2 * (groups - 1)])
 
+
+def capped_concentrated_allocation(
+    groups: int, total: int, maximum_size: int
+) -> tuple[int, ...]:
+    """Sharp minimum witness when every group size is also bounded above."""
+    if groups < 1 or maximum_size < 2 or total < 2 * groups or total > groups * maximum_size:
+        raise ValueError("infeasible capped group aggregates")
+    excess = total - 2 * groups
+    capacity = maximum_size - 2
+    if capacity == 0:
+        return tuple([2] * groups)
+    full, remainder = divmod(excess, capacity)
+    allocation = [2] * (groups - full - int(remainder > 0))
+    if remainder:
+        allocation.append(2 + remainder)
+    allocation.extend([maximum_size] * full)
+    return tuple(allocation)
 
 def balanced_allocation(groups: int, total: int) -> tuple[int, ...]:
     if groups < 1 or total < 2 * groups:
@@ -83,6 +152,11 @@ def theorem_certificate(population: int, test: int, groups: int, total: int) -> 
             raise AssertionError(f"{name} is not strictly increasing")
         if not all(value <= 0 for value in second):
             raise AssertionError(f"{name} is not discrete-concave")
+        closed_minimum = sum(function(population, test, size) for size in concentrated)
+        closed_maximum = sum(function(population, test, size) for size in balanced)
+        dp_minimum, dp_maximum = allocation_dp_extrema(function, population, test, groups, total)
+        if (dp_minimum, dp_maximum) != (closed_minimum, closed_maximum):
+            raise AssertionError(f"{name} closed forms disagree with the allocation dynamic program")
         rows[name] = {
             "nondecreasing_on_sizes_2_through": maximum_size,
             "strictly_increasing": all(value > 0 for value in first),
@@ -92,8 +166,9 @@ def theorem_certificate(population: int, test: int, groups: int, total: int) -> 
             "largest_second_difference": float(max(second)) if second else None,
             "minimum_allocation": list(concentrated),
             "maximum_allocation": list(balanced),
-            "minimum": float(sum(function(population, test, size) for size in concentrated)),
-            "maximum": float(sum(function(population, test, size) for size in balanced)),
+            "minimum": float(closed_minimum),
+            "maximum": float(closed_maximum),
+            "dynamic_program_verified": True,
         }
     return {
         "schema_version": 1,

@@ -14,7 +14,9 @@ from pathlib import Path
 from typing import Iterable
 
 from split_risk_theorem import (
+    allocation_dp_extrema,
     all_selected_probability,
+    capped_concentrated_allocation,
     crossing_probability,
     exposed_expectation,
 )
@@ -191,9 +193,37 @@ def dataset_result(
         crossing_max = weighted_sum(balanced, crossing_probability)
         exposed_min = weighted_sum(concentrated, exposed_expectation)
         exposed_max = weighted_sum(balanced, exposed_expectation)
+        dp_crossing = allocation_dp_extrema(
+            crossing_probability, POPULATION, TEST_FILES, group_count, grouped_files
+        )
+        dp_exposed = allocation_dp_extrema(
+            exposed_expectation, POPULATION, TEST_FILES, group_count, grouped_files
+        )
+        if dp_crossing != (crossing_min, crossing_max):
+            raise AssertionError("crossing closed forms disagree with the allocation dynamic program")
+        if dp_exposed != (exposed_min, exposed_max):
+            raise AssertionError("exposure closed forms disagree with the allocation dynamic program")
+        disclosed_cap = max(histogram)
+        capped_concentrated = Counter(
+            capped_concentrated_allocation(group_count, grouped_files, disclosed_cap)
+        )
+        capped_crossing_min = weighted_sum(capped_concentrated, crossing_probability)
+        capped_exposed_min = weighted_sum(capped_concentrated, exposed_expectation)
+        capped_dp_crossing = allocation_dp_extrema(
+            crossing_probability, POPULATION, TEST_FILES, group_count, grouped_files, disclosed_cap
+        )
+        capped_dp_exposed = allocation_dp_extrema(
+            exposed_expectation, POPULATION, TEST_FILES, group_count, grouped_files, disclosed_cap
+        )
+        if capped_dp_crossing != (capped_crossing_min, crossing_max):
+            raise AssertionError("cap-aware crossing corollary disagrees with its dynamic program")
+        if capped_dp_exposed != (capped_exposed_min, exposed_max):
+            raise AssertionError("cap-aware exposure corollary disagrees with its dynamic program")
     else:
         crossing_min = crossing_max = Fraction(0)
         exposed_min = exposed_max = Fraction(0)
+        disclosed_cap = 0
+        capped_crossing_min = capped_exposed_min = Fraction(0)
     if not crossing_min <= known_crossing <= crossing_max:
         raise AssertionError("known crossing expectation escaped aggregate bounds")
     if not exposed_min <= known_exposed <= exposed_max:
@@ -255,6 +285,11 @@ def dataset_result(
         "aggregate_only_bounds": {
             "crossing_groups": [rounded(crossing_min), rounded(crossing_max)],
             "exposed_test_files": [rounded(exposed_min), rounded(exposed_max)],
+        },
+        "cap_aware_bounds": {
+            "maximum_group_size": disclosed_cap,
+            "crossing_groups": [rounded(capped_crossing_min), rounded(crossing_max)],
+            "exposed_test_files": [rounded(capped_exposed_min), rounded(exposed_max)],
         },
         "official_split_observation": {
             "crossing_groups": official_crossing,

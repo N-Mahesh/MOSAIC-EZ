@@ -33,13 +33,15 @@ REQUIRED_LITERALS = (
     "4c2764277f5fda8fec6784a78c1818eab13236c5",
     "83.573", "80.722", "84.446", "86.097",
     "246.137", "231.559", "248.615", "255.795",
-    "288", "831", "7.617", "12.915", "urtc2026-cifair-v1", *ALLOWED_PUBLIC_SHA256,
+    "82.689", "241.359", "85.665", "253.389",
+    "28.5", "41.7", "52.3", "59.8", "83.8", "inconclusive", "split-conditioned",
+    "288", "831", "7.617", "12.915", "4.933", "13.961", "2.700",
+    "Proposition 2", "residual singleton", "urtc2026-cifair-v13", *ALLOWED_PUBLIC_SHA256,
 )
 FORBIDDEN_LITERALS = {
     "legacy model-centered title": "Leakage-Controlled Facial-Affect Recognition",
     "legacy architecture label": "Frozen ViT",
     "legacy head label": "MLP",
-    "public contaminated repository URL": "/".join(("github.com", "N-Mahesh", "MOSAIC-EZ")),
     "legacy ordinary-accuracy value": "63.2%",
     "legacy balanced-accuracy value": "58.1%",
     "legacy macro-F1 value": "57.6%",

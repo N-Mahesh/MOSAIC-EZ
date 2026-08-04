@@ -1,5 +1,8 @@
 {
   "manuscript_macro_values": {
+    "CifarHundredCap": "8",
+    "CifarHundredCapCrossMin": "241.359",
+    "CifarHundredCapExposedMin": "253.389",
     "CifarHundredCrossMax": "248.615",
     "CifarHundredCrossMin": "231.559",
     "CifarHundredCrossSD": "12.915",
@@ -38,6 +41,9 @@
     "CifarHundredPZeroOneGroups": "596",
     "CifarHundredPZeroOneKnownCross": "174.374",
     "CifarHundredPZeroOneKnownExposed": "180.115",
+    "CifarTenCap": "8",
+    "CifarTenCapCrossMin": "82.689",
+    "CifarTenCapExposedMin": "85.665",
     "CifarTenCrossMax": "84.446",
     "CifarTenCrossMin": "80.722",
     "CifarTenCrossSD": "7.617",
@@ -80,5 +86,5 @@
   "rounding_policy": "displayed real-valued macros use three digits after the decimal point",
   "schema_version": 1,
   "source_claim_file": "public_cifair_validation_results.v1.json",
-  "source_claim_sha256": "86f886609dce9aaea60660f247dda8a69da7e9c82938774301f5553283f587c2"
+  "source_claim_sha256": "125102eb79e0ccb58a3fd4cee1326b0fd8a5c28a2f6f45ad06f718b48ff6c028"
 }

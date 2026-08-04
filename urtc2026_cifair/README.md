@@ -1,20 +1,26 @@
 # Public ciFAIR reproduction bundle
 
-Immutable release path:
-https://github.com/N-Mahesh/asd-multimodal-emotion-fusion/tree/urtc2026-cifair-v1/urtc2026_cifair
+Annotated release tag:
+https://github.com/N-Mahesh/MOSAIC-EZ/tree/urtc2026-cifair-v13
 
-Verified environment: Python 3.12.5 and pypdf 6.14.2. The analysis itself uses only the Python standard library. Expected full verification time is under two minutes on a typical laptop.
+A tag name is not itself content identity. Reviewers should record `git rev-parse HEAD`, verify the annotated tag target, and run the manifest check below. `RELEASE_MANIFEST.sha256` binds every release file except itself.
 
-Quick integrity, PDF, claim-ledger, and unit-test check:
+Verified Python environment: Python 3.12.5 and pypdf 6.14.2. The analysis uses only the Python standard library. Git and network access are required only to retrieve the pinned upstream metadata. The last successful retrieval and hash verification was Aug. 3, 2026. A pinned-data verification run took 134.9 seconds on the source workstation; this is an observation, not a runtime guarantee.
 
+Environment bootstrap and quick integrity, PDF, claim-ledger, utility/merger-study, and unit-test check:
+
+    python -m pip install -r requirements-release.txt
     python tools/verify_public_release_bundle.py .
 
-Full metadata re-computation:
+Checksum-verifying upstream retrieval and full recomputation:
 
-    git clone https://github.com/cvjena/cifair.git cifair
-    git -C cifair checkout 4c2764277f5fda8fec6784a78c1818eab13236c5
-    python tools/verify_public_release_bundle.py . --cifair-meta cifair/meta
+    python tools/fetch_cifair_metadata.py cifair
+    python tools/verify_public_release_bundle.py . --cifair-meta cifair/meta --rebuild-pdf
 
-Success ends with `PASS: exact public reproduction bundle verified.` Any manifest, PDF, checksum, schema, frozen-claim, macro, ledger, metadata, or test mismatch exits nonzero. The bundle contains no CIFAR images or upstream annotation CSVs.
+Standalone source-to-PDF check in the documented TeX environment:
 
-Technical verification does not determine conference eligibility. Written URTC guidance is still required for the disclosed AI assistance.
+    python tools/build_manuscript.py .
+
+Success ends with `PASS: exact public reproduction bundle verified.` Any manifest, PDF, checksum, schema, frozen-claim, macro, ledger, utility-study, merger-study, metadata, source-rebuild, or test mismatch exits nonzero. The bundle contains no CIFAR images or upstream annotation CSVs, so full empirical reproduction is explicitly network-dependent.
+
+Current venue-format reference: https://urtc.mit.edu/paper_submission_2026.pdf . Technical verification does not determine conference eligibility. Written URTC guidance is still required for the disclosed AI assistance.

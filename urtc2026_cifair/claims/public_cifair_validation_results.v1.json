@@ -14,6 +14,17 @@
       "annotated_edge_rows": 325,
       "annotated_group_count": 288,
       "annotated_grouped_files": 608,
+      "cap_aware_bounds": {
+        "crossing_groups": [
+          82.688889620325,
+          84.445851875309
+        ],
+        "exposed_test_files": [
+          85.664863607815,
+          86.66796297963
+        ],
+        "maximum_group_size": 8
+      },
       "dataset": "CIFAR-10",
       "known_group_size_histogram": {
         "2": 272,
@@ -70,6 +81,17 @@
       "annotated_edge_rows": 995,
       "annotated_group_count": 831,
       "annotated_grouped_files": 1790,
+      "cap_aware_bounds": {
+        "crossing_groups": [
+          241.359467548367,
+          248.615254698689
+        ],
+        "exposed_test_files": [
+          253.389449655284,
+          257.503699115972
+        ],
+        "maximum_group_size": 8
+      },
       "dataset": "CIFAR-100",
       "known_group_size_histogram": {
         "2": 752,
@@ -139,6 +161,17 @@
           "annotated_edge_rows": 0,
           "annotated_group_count": 0,
           "annotated_grouped_files": 0,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              0.0,
+              0.0
+            ],
+            "exposed_test_files": [
+              0.0,
+              0.0
+            ],
+            "maximum_group_size": 0
+          },
           "dataset": "CIFAR-10",
           "known_group_size_histogram": {},
           "known_size_expectation": {
@@ -169,6 +202,17 @@
           "annotated_edge_rows": 41,
           "annotated_group_count": 41,
           "annotated_grouped_files": 82,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              11.389078706867,
+              11.389078706867
+            ],
+            "exposed_test_files": [
+              11.389078706867,
+              11.389078706867
+            ],
+            "maximum_group_size": 2
+          },
           "dataset": "CIFAR-100",
           "known_group_size_histogram": {
             "2": 41
@@ -206,6 +250,17 @@
           "annotated_edge_rows": 279,
           "annotated_group_count": 249,
           "annotated_grouped_files": 523,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              71.630600395907,
+              72.640099557215
+            ],
+            "exposed_test_files": [
+              73.708686553674,
+              74.376123857465
+            ],
+            "maximum_group_size": 6
+          },
           "dataset": "CIFAR-10",
           "known_group_size_histogram": {
             "2": 236,
@@ -241,6 +296,17 @@
           "annotated_edge_rows": 695,
           "annotated_group_count": 596,
           "annotated_grouped_files": 1267,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              171.754587781994,
+              175.975155141475
+            ],
+            "exposed_test_files": [
+              178.779777405755,
+              181.183228042226
+            ],
+            "maximum_group_size": 8
+          },
           "dataset": "CIFAR-100",
           "known_group_size_histogram": {
             "2": 551,
@@ -284,6 +350,17 @@
           "annotated_edge_rows": 325,
           "annotated_group_count": 288,
           "annotated_grouped_files": 608,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              82.688889620325,
+              84.445851875309
+            ],
+            "exposed_test_files": [
+              85.664863607815,
+              86.66796297963
+            ],
+            "maximum_group_size": 8
+          },
           "dataset": "CIFAR-10",
           "known_group_size_histogram": {
             "2": 272,
@@ -320,6 +397,17 @@
           "annotated_edge_rows": 995,
           "annotated_group_count": 831,
           "annotated_grouped_files": 1790,
+          "cap_aware_bounds": {
+            "crossing_groups": [
+              241.359467548367,
+              248.615254698689
+            ],
+            "exposed_test_files": [
+              253.389449655284,
+              257.503699115972
+            ],
+            "maximum_group_size": 8
+          },
           "dataset": "CIFAR-100",
           "known_group_size_histogram": {
             "2": 752,
