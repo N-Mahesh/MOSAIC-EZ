@@ -190,15 +190,22 @@ def main() -> None:
         ),
     }
 
+    # Both label spaces must be evaluated over the SAME images, otherwise a
+    # "categories vs zones" comparison silently compares different test sets.
+    # `surprise` has no zone, so it is dropped from both arms and the categorical
+    # arm becomes a five-way task over exactly the images the zone arm sees.
+    zoneable = [r for r in records if r["zone"] is not None]
+    FIVE = tuple(c for c in SIX if c != "surprise")
+
     results = {}
-    for space, classes, key in (("six_category", SIX, "label"), ("three_zone", ZONES, "zone")):
+    for space, classes, key in (("five_category", FIVE, "label"), ("three_zone", ZONES, "zone")):
         results[space] = {}
-        pool = [r for r in records if r[key] is not None]
+        pool = zoneable
         label_index = {c: i for i, c in enumerate(classes)}
 
         for name, (train_rows, test_rows) in protocols.items():
-            train_rows = [r for r in train_rows if r[key] is not None]
-            test_rows = [r for r in test_rows if r[key] is not None]
+            train_rows = [r for r in train_rows if r["zone"] is not None]
+            test_rows = [r for r in test_rows if r["zone"] is not None]
             if not train_rows or not test_rows:
                 continue
             results[space][name] = evaluate(
@@ -238,10 +245,33 @@ def main() -> None:
 
     for space, entries in results.items():
         print(f"\n=== {space} ===")
-        print(f"{'protocol':18s} {'bal.acc':>8s} {'sd':>6s} {'kappa':>7s} {'leaked%':>8s} {'n_test':>7s}")
+        print(f"{'protocol':16s} {'bal.acc':>8s} {'sd':>6s} {'kappa':>7s} {'1NN':>7s} {'hard%':>6s} {'grp%':>6s} {'n':>5s}")
         for name, entry in entries.items():
-            print(f"{name:18s} {entry['balanced_accuracy_mean']:8.4f} {entry['balanced_accuracy_std']:6.4f} "
-                  f"{entry['kappa_mean']:+7.4f} {entry['test_leaked_share']*100:7.1f}% {entry['n_test']:7d}")
+            print(f"{name:16s} {entry['balanced_accuracy_mean']:8.4f} {entry['balanced_accuracy_std']:6.4f} "
+                  f"{entry['kappa_mean']:+7.4f} {entry['nn1_balanced_accuracy']:7.4f} "
+                  f"{entry['test_leaked_share']*100:5.1f}% {entry['test_group_leaked_share']*100:5.1f}% {entry['n_test']:5d}")
+
+
+def nearest_neighbour_ceiling(x_train, y_train, x_test, y_test, label_index):
+    """1-NN in feature space: an explicit upper bound on what memorisation buys.
+
+    A frozen low-capacity probe cannot exploit a leaked duplicate, so it cannot
+    tell us what an end-to-end fine-tuned network could extract from a
+    contaminated split. 1-NN is the opposite extreme: it memorises the training
+    set exactly and returns the label of the closest stored example, so a test
+    image whose byte-identical twin is in training is recovered with certainty.
+    Reporting it bounds the contamination effect from above without training
+    anything.
+    """
+    from sklearn.metrics import balanced_accuracy_score
+    from sklearn.neighbors import KNeighborsClassifier
+
+    model = KNeighborsClassifier(n_neighbors=1).fit(x_train, y_train)
+    predictions = model.predict(x_test)
+    return {
+        "balanced_accuracy": float(balanced_accuracy_score(y_test, predictions)),
+        "accuracy": float((y_test == predictions).mean()),
+    }
 
 
 def evaluate(train_rows, test_rows, embeddings, index, label_index, key, seeds, groups):
@@ -267,11 +297,14 @@ def evaluate(train_rows, test_rows, embeddings, index, label_index, key, seeds, 
         predictions = predict(x_test)
         scores.append(metric_values(y_test, predictions, len(label_index)))
         kappas.append(kappa(y_test, predictions, len(label_index)))
+    nn_ceiling = nearest_neighbour_ceiling(x_train, y_train, x_test, y_test, label_index)
     return {
         "n_train": len(y_train),
         "n_test": len(y_test),
         "test_leaked_share": leaked / len(y_test),
         "test_group_leaked_share": group_leaked / len(y_test),
+        "nn1_balanced_accuracy": nn_ceiling["balanced_accuracy"],
+        "nn1_accuracy": nn_ceiling["accuracy"],
         "balanced_accuracy_mean": float(np.mean([s["balanced_accuracy"] for s in scores])),
         "balanced_accuracy_std": float(np.std([s["balanced_accuracy"] for s in scores], ddof=1) if len(scores) > 1 else 0.0),
         "accuracy_mean": float(np.mean([s["accuracy"] for s in scores])),
@@ -283,7 +316,8 @@ def evaluate(train_rows, test_rows, embeddings, index, label_index, key, seeds, 
 def aggregate(entries):
     out = dict(entries[0])
     for field in ("balanced_accuracy_mean", "accuracy_mean", "macro_f1_mean", "kappa_mean",
-                  "test_leaked_share", "test_group_leaked_share", "n_test", "n_train"):
+                  "test_leaked_share", "test_group_leaked_share", "n_test", "n_train",
+                  "nn1_balanced_accuracy", "nn1_accuracy"):
         out[field] = float(np.mean([e[field] for e in entries]))
     out["balanced_accuracy_std"] = float(np.std([e["balanced_accuracy_mean"] for e in entries], ddof=1))
     out["n_test"] = int(round(out["n_test"]))

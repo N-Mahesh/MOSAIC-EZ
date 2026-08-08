@@ -245,6 +245,54 @@ def main() -> None:
     zoneable = [r for r in records if r["zone"] is not None]
     absorbed = six_way["conflicted_groups"] - three_zone["conflicted_groups"]
 
+    # Is the negative-affect concentration of conflicts more than the class
+    # marginals already imply? Zones 2 and 3 cover three of the five zoneable
+    # categories and hold most of the archive, so some concentration is expected
+    # for free. Permute labels within the archive's observed marginals and ask
+    # how often chance alone puts this many conflicted files in negative affect.
+    rng = np.random.default_rng(1729)
+    observed_negative = sum(
+        v for k, v in three_zone["conflicted_samples_by_value"].items() if k in ("zone2", "zone3")
+    )
+    observed_total = sum(three_zone["conflicted_samples_by_value"].values())
+    zone_pool = [r["zone"] for r in zoneable]
+    by_hash_z = collections.defaultdict(list)
+    for record in zoneable:
+        by_hash_z[record["sha256"]].append(record)
+    duplicate_members = [m for m in by_hash_z.values() if len(m) > 1]
+    null_negative, null_conflicted = [], []
+    for _ in range(2000):
+        shuffled = rng.permutation(zone_pool)
+        position = 0
+        assigned = {}
+        for record in zoneable:
+            assigned[id(record)] = shuffled[position]
+            position += 1
+        neg = tot = 0
+        for members in duplicate_members:
+            values = {assigned[id(m)] for m in members}
+            if len(values) > 1:
+                tot += len(members)
+                neg += sum(1 for m in members if assigned[id(m)] in ("zone2", "zone3"))
+        null_negative.append(neg / tot if tot else 0.0)
+        null_conflicted.append(tot)
+    null_negative = np.asarray(null_negative)
+    observed_share = observed_negative / observed_total
+    permutation_test = {
+        "observed_negative_share": observed_share,
+        "null_mean_negative_share": float(null_negative.mean()),
+        "null_p95_negative_share": float(np.percentile(null_negative, 95)),
+        "p_value_one_sided": float((null_negative >= observed_share).mean()),
+        "observed_conflicted_files": observed_total,
+        "null_mean_conflicted_files": float(np.mean(null_conflicted)),
+        "replicates": 2000,
+        "note": (
+            "Labels are permuted across the zoneable images, preserving the archive's "
+            "zone marginals and the duplicate-group structure. The null answers whether "
+            "negative affect absorbs more conflicts than its prevalence alone predicts."
+        ),
+    }
+
     # --- augmentation families ------------------------------------------------------
     import re
 
@@ -291,6 +339,7 @@ def main() -> None:
                 absorbed / six_way["conflicted_groups"] if six_way["conflicted_groups"] else None
             ),
             "zoneable_images": len(zoneable),
+            "negative_concentration_permutation_test": permutation_test,
             "note": (
                 "Both views use the same byte-identical duplicate groups. A group counted "
                 "under six_category but not under three_zone is one the categorical schema "
