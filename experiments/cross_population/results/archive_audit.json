@@ -1,0 +1,128 @@
+{
+  "archive": {
+    "exact_duplicate_files": 484,
+    "exact_duplicate_rate": 0.21434898139946856,
+    "shipped_trees": [
+      "Autism emotion recogition dataset",
+      "Autistic Children Emotions - Dr. Fatma M. Talaat"
+    ],
+    "total_labelled_images": 2258,
+    "unique_sha256": 1774
+  },
+  "augmentation_families": {
+    "families_larger_than_one": 335,
+    "family_count": 1020,
+    "largest_family": 9,
+    "size_histogram": {
+      "1": 685,
+      "2": 100,
+      "3": 19,
+      "4": 10,
+      "5": 6,
+      "6": 159,
+      "7": 37,
+      "8": 3,
+      "9": 1
+    }
+  },
+  "cross_tree_overlap": {
+    "Autism emotion recogition dataset <-> Autistic Children Emotions - Dr. Fatma M. Talaat": {
+      "share_of_smaller_tree": 0.4504881450488145,
+      "shared_unique_images": 323
+    }
+  },
+  "exact_duplicate_group_size_histogram": {
+    "1": 1380,
+    "2": 313,
+    "3": 73,
+    "4": 7,
+    "5": 1
+  },
+  "hard_leakage_across_shipped_split": {
+    "Autism emotion recogition dataset": {
+      "crossing_unique_images": 0,
+      "share_of_test_leaked": 0.0,
+      "test_files": 226,
+      "test_files_with_identical_training_copy": 0,
+      "test_unique": 226,
+      "train_unique": 1154
+    },
+    "Autistic Children Emotions - Dr. Fatma M. Talaat": {
+      "crossing_unique_images": 3,
+      "share_of_test_leaked": 0.04,
+      "test_files": 75,
+      "test_files_with_identical_training_copy": 3,
+      "test_unique": 73,
+      "train_unique": 647
+    }
+  },
+  "label_conflicts": {
+    "groups_absorbed_by_zone_collapse": 16,
+    "note": "Both views use the same byte-identical duplicate groups. A group counted under six_category but not under three_zone is one the categorical schema records as an annotator contradiction and the zone collapse does not.",
+    "share_of_six_category_conflicts_absorbed": 0.13445378151260504,
+    "six_category": {
+      "conflicted_groups": 119,
+      "conflicted_samples": 327,
+      "conflicted_samples_by_value": {
+        "anger": 124,
+        "fear": 49,
+        "natural": 5,
+        "sadness": 119,
+        "surprise": 30
+      },
+      "duplicate_groups_considered": 394
+    },
+    "three_zone": {
+      "conflicted_groups": 103,
+      "conflicted_samples": 280,
+      "conflicted_samples_by_value": {
+        "zone1": 1,
+        "zone2": 173,
+        "zone3": 106
+      },
+      "duplicate_groups_considered": 346
+    },
+    "zoneable_images": 1952
+  },
+  "per_tree": {
+    "Autism emotion recogition dataset": {
+      "by_label": {
+        "anger": 240,
+        "fear": 236,
+        "joy": 235,
+        "natural": 240,
+        "sadness": 237,
+        "surprise": 237
+      },
+      "by_split": {
+        "test": 226,
+        "train": 1199
+      },
+      "files": 1425,
+      "unique_sha256": 1380
+    },
+    "Autistic Children Emotions - Dr. Fatma M. Talaat": {
+      "by_label": {
+        "anger": 70,
+        "fear": 33,
+        "joy": 392,
+        "natural": 55,
+        "sadness": 214,
+        "surprise": 69
+      },
+      "by_split": {
+        "test": 75,
+        "train": 758
+      },
+      "files": 833,
+      "unique_sha256": 717
+    }
+  },
+  "perceptual_near_duplicates": {
+    "components_larger_than_one": 163,
+    "edges": 222,
+    "hamming_threshold": 4,
+    "largest_component": 5,
+    "unique_images_hashed": 1774
+  }
+}
