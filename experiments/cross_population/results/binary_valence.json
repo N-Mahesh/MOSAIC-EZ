@@ -1,0 +1,83 @@
+{
+  "chance_corrected_range": 0.40991008898421843,
+  "per_protocol": {
+    "cross_tree": {
+      "accuracy_mean": 0.8594202898550725,
+      "balanced_accuracy_mean": 0.8388775510204083,
+      "balanced_accuracy_std": 0.030181972357884387,
+      "kappa_mean": 0.6645874081014103,
+      "macro_f1_mean": 0.8320470215464274,
+      "n_test": 69,
+      "n_train": 1188,
+      "nn1_accuracy": 0.8405797101449275,
+      "nn1_balanced_accuracy": 0.8581632653061224,
+      "test_group_leaked_share": 0.2463768115942029,
+      "test_leaked_share": 0.2318840579710145
+    },
+    "group_aware": {
+      "accuracy_mean": 0.8880584148796545,
+      "balanced_accuracy_mean": 0.8897228948246816,
+      "balanced_accuracy_std": 0.01899444183479658,
+      "kappa_mean": 0.7753870891377679,
+      "macro_f1_mean": 0.9202988792029887,
+      "n_test": 180,
+      "n_train": 1772.0,
+      "nn1_accuracy": 0.875,
+      "nn1_balanced_accuracy": 0.8693808786579516,
+      "test_group_leaked_share": 0.0,
+      "test_leaked_share": 0.0
+    },
+    "naive_random": {
+      "accuracy_mean": 0.9249146757679181,
+      "balanced_accuracy_mean": 0.9246999424512928,
+      "balanced_accuracy_std": 0.01651716090439918,
+      "kappa_mean": 0.849208568139655,
+      "macro_f1_mean": 0.9446908919301558,
+      "n_test": 293,
+      "n_train": 1659.0,
+      "nn1_accuracy": 0.9556313993174061,
+      "nn1_balanced_accuracy": 0.9261741824578766,
+      "test_group_leaked_share": 0.8064846416382254,
+      "test_leaked_share": 0.35767918088737205
+    },
+    "vendor_balanced": {
+      "accuracy_mean": 0.8338624338624339,
+      "balanced_accuracy_mean": 0.8239649122807018,
+      "balanced_accuracy_std": 0.029382714899851385,
+      "kappa_mean": 0.650862131522571,
+      "macro_f1_mean": 0.8253362525915631,
+      "n_test": 189,
+      "n_train": 999,
+      "nn1_accuracy": 0.8042328042328042,
+      "nn1_balanced_accuracy": 0.7966666666666666,
+      "test_group_leaked_share": 0.3333333333333333,
+      "test_leaked_share": 0.0
+    },
+    "vendor_talaat": {
+      "accuracy_mean": 0.8057971014492754,
+      "balanced_accuracy_mean": 0.7197448979591836,
+      "balanced_accuracy_std": 0.010913677548322887,
+      "kappa_mean": 0.4822273596937013,
+      "macro_f1_mean": 0.7384153196888776,
+      "n_test": 69,
+      "n_train": 695,
+      "nn1_accuracy": 0.7246376811594203,
+      "nn1_balanced_accuracy": 0.5693877551020409,
+      "test_group_leaked_share": 0.2608695652173913,
+      "test_leaked_share": 0.014492753623188406
+    }
+  },
+  "raw_range": 0.20495504449210922,
+  "seeds": [
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31
+  ]
+}
