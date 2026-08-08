@@ -27,19 +27,16 @@ Emotion Recognition for Autistic Children}
 \begin{abstract}
 Emotion recognition is widely proposed as assistive technology for autistic
 children, and papers on public autism facial-expression archives report up to
-97.95\% accuracy. We audit the archive behind many of those figures. It ships
-two overlapping dataset trees sharing 45\% of the smaller tree's images, 21.4\%
-of its files are byte-identical duplicates, and 119 duplicate groups carry
-contradictory labels on pixel-identical images (103 once the unmapped
-\texttt{surprise} category is dropped). Holding the features and classifier fixed and
+97.95\% accuracy. We audit one such archive. It ships two overlapping dataset
+trees, 21.4\% of its files are byte-identical duplicates, and 119 duplicate
+groups carry contradictory labels on pixel-identical images. Holding the features and classifier fixed and
 changing how train and test are separated---which also moves training-set size
 by 2.6$\times$ and test size by 4$\times$---five-category balanced accuracy
 spans 0.346--0.750; duplicate leakage explains little of it---a
 point estimate of 5.0 points, and 2.1 for a nearest-neighbour memoriser, neither
-distinguishable from zero at this sample size. The contradictions have a
-sharp geometry: one boundary, valence, absorbs 102 of 103, and a permutation
-null conditioned on the observed conflict count puts cross-valence conflict at a
-113-fold depletion. Controls then
+distinguishable from zero at this sample size. The contradictions have a degenerate geometry: every
+one involves \texttt{sadness}, and a single boundary---valence---absorbs 102 of
+103. Controls then
 refute our own prior three-zone framework---it absorbs none of the
 contradictions, because it cuts between anger and sadness where disagreement
 peaks, and its apparent stability advantage is generic to class count. Chance-corrected under a group-aware split, a binary
@@ -67,12 +64,12 @@ autism facial-expression archives report accuracies from
 evaluating on independently collected, consented clinical corpora mostly report
 less: 40\% for a commercial analyser on the EMBOA autism
 corpus~\cite{kiejdo2025} and 57.95--64.92\% for four commercial classifiers on
-parent-reported autistic children~\cite{kalantarian2020}. The comparison needs
-care. Grossard \emph{et al.}~\cite{grossard2020} reach 82.05\% within-population
-on lab-collected video, inside the public-archive band, and 66.43\% training on
-typically developing children and testing on autistic ones---so part of any gap
-is population transfer, not data provenance. What remains unexplained is the top
-of the public-archive band, which no consented corpus approaches.
+parent-reported autistic children~\cite{kalantarian2020}. The comparison needs care:
+Grossard \emph{et al.}~\cite{grossard2020} reach 82.05\% within-population on
+lab-collected video, inside the public-archive band, and 66.43\% across
+populations---so part of any gap is population transfer rather than provenance.
+What remains unexplained is the top of the public-archive band, which no
+consented corpus approaches.
 
 That correlation has become hard to ignore. Publishers have retracted work built
 on scraped autism face datasets, including the source paper for the archive we
@@ -93,12 +90,10 @@ every label as a filing decision about an image rather than ground truth about a
 person.
 
 \section{Related Work}
-\textbf{Cross-population transfer is established.} Grossard \emph{et
-al.}~\cite{grossard2020} ran the controlled experiment (157 typically developing
-and 36 autistic children, subject-independent CV), and Gaya-Morey \emph{et
-al.}~\cite{gayamorey2026} repeated the design with twelve CNNs on an adjacent
-population. We do not claim that finding; we ask whether the public benchmarks
-now used to measure it can support the measurement.
+\textbf{Cross-population transfer is established} by Grossard \emph{et
+al.}~\cite{grossard2020} and, with twelve CNNs on an adjacent population, by
+Gaya-Morey \emph{et al.}~\cite{gayamorey2026}. We do not claim that finding; we
+ask whether the benchmarks now used to measure it can support the measurement.
 
 \textbf{Benchmark contamination is a mature field.} Kapoor and
 Narayanan~\cite{kapoor2023} catalogue eight leakage types across 294 papers;
@@ -309,16 +304,14 @@ them turns out to matter more than counting them.
 Our prior three-zone framework groups the vendor's categories as zone~1
 \{\texttt{natural} (the vendor's label for neutral), \texttt{joy}\}, zone~2
 \{\texttt{anger}, \texttt{fear}\}, zone~3 \{\texttt{sadness}\}, leaving
-\texttt{surprise} unmapped. Restricting to the 1{,}952 files that receive a zone , we ask for each coarsening of the five
-categories how many byte-identical duplicate groups still straddle a block
-boundary. A coarsening that absorbs many contradictions is one whose boundaries
-the filing process respected, and since every candidate below shares a block
-shape, this measures \emph{where} the boundary falls rather than how many
-classes there are. Table~\ref{tab:conflicts} gives the result.
+\texttt{surprise} unmapped. Restricting to the 1{,}952 files that receive a
+zone, we ask for each coarsening of the five categories how many byte-identical
+duplicate groups still straddle a block boundary. A coarsening that absorbs many
+contradictions is one whose boundaries the filing process respected.
 
 \begin{table}[t]
-\caption{Duplicate groups still carrying conflicting labels after coarsening,
-against 346 duplicate groups and a 103-conflict five-way baseline.}
+\caption{Duplicate groups still conflicting after coarsening, against a
+103-conflict five-way baseline over 346 duplicate groups.}
 \label{tab:conflicts}
 \centering
 \setlength{\tabcolsep}{3pt}
@@ -327,38 +320,61 @@ against 346 duplicate groups and a 103-conflict five-way baseline.}
 Coarsening & Conflicts & Absorbed\\
 \midrule
 Five categories (baseline) & 103 & ---\\
-\midrule
 \{natural, joy\} vs rest \textbf{(valence)} & \textbf{1} & \textbf{102}\\
 \{anger, sadness\} vs rest & 26 & 77\\
-\{anger\} vs rest & 77 & 26\\
-\{anger, fear\} vs rest & 102 & 1\\
-\midrule
 Valence zones (3 blocks) & 103 & 0\\
 Best of 15 three-block partitions & 26 & 77\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{One boundary absorbs almost everything.} Splitting positive/neutral from
-negative leaves one conflicted group out of 346; every other binary cut leaves
-far more. A permutation null preserving the zone marginals and duplicate-group
-structure sharpens this.
-The null over-predicts the total number of
-conflicted \emph{files} by 1.9$\times$, so we condition on the 280 that occur.
-Counting files: 113 are expected to carry a positive/neutral label against 1
-observed, a 113-fold depletion resting on a single event, while files carrying a
-negative-affect label are \emph{enriched} about 1.7-fold (279 against 167).
-(Table~\ref{tab:conflicts} counts duplicate \emph{groups}; this paragraph counts
-files.) The filing process
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  cat/.style={draw,rounded corners=2pt,inner sep=2.5pt,font=\normalsize},
+]
+\node[cat] (ang) at (0,0) {\texttt{anger}};
+\node[cat] (sad) at (2.35,0) {\texttt{sadness}};
+\node[cat] (fea) at (4.85,0) {\texttt{fear}};
+\node[cat] (nat) at (0,-0.92) {\texttt{natural}};
+\node[cat] (joy) at (4.85,-0.92) {\texttt{joy}};
+\draw[very thick] (ang) -- node[above,inner sep=1pt] {77} (sad);
+\draw[very thick] (sad) -- node[above,inner sep=1pt] {25} (fea);
+\draw[very thick,densely dashed] (nat) -- node[below,sloped,inner sep=1pt] {1} (sad);
+\draw[dotted] (nat) -- node[below,inner sep=1pt] {0} (joy);
+\draw[dotted] (sad) -- node[below,sloped,inner sep=1pt] {0} (joy);
+\end{tikzpicture}
+\caption{All 103 cross-label duplicate groups involve \texttt{sadness}. Edges
+count byte-identical groups filed under both endpoints; dotted edges are zero,
+and \texttt{anger}--\texttt{fear} is also zero. The dashed edge is the only one
+crossing valence. Our three-zone scheme separates \texttt{sadness} from
+\{\texttt{anger},\texttt{fear}\}, cutting both heavy edges---which is why it
+absorbs none of the contradictions.}
+\label{fig:conflicts}
+\end{figure}
+
+\textbf{Every contradiction involves one category.} The pairwise structure
+(Fig.~\ref{fig:conflicts}) is degenerate: \texttt{anger}--\texttt{sadness}
+accounts for 77 groups, \texttt{fear}--\texttt{sadness} for 25, and
+\texttt{natural}--\texttt{sadness} for 1. Every other pair, including
+\texttt{anger}--\texttt{fear} and \texttt{natural}--\texttt{joy}, has none. So
+splitting positive/neutral from negative leaves one conflicted group out of 346,
+and a permutation null preserving the zone marginals and duplicate-group
+structure sharpens that.
+The null over-predicts total conflicted
+\emph{files} by 1.9$\times$, so we condition on the 280 that occur. Counting
+files, 113 are expected to carry a positive/neutral label against 1 observed---a
+depletion of at least an order of magnitude, though resting on a single event and
+so imprecise---while negative-affect files are \emph{enriched} about 1.7-fold
+(279 against 167). Table~\ref{tab:conflicts} counts groups; this counts files. The filing process
 separated valence almost perfectly and anger, fear, and sadness not at all.
 
 \textbf{The three-zone partition absorbs none of it.} This is a negative result
-about our own prior framework. Valence zones place anger and fear together and
-sadness apart, but anger versus sadness is the most common contradiction in the
-archive, so the zone-2/zone-3 boundary runs straight through the region of
-maximum disagreement. Among the 15 same-shape partitions the zone partition ties
-for worst at absorbing contradictions, while grouping anger with sadness absorbs
-77 of 103.
+about our own prior framework, and Fig.~\ref{fig:conflicts} shows why: the zones
+put \texttt{anger} and \texttt{fear} together and \texttt{sadness} apart, so the
+zone-2/zone-3 boundary severs both heavy edges and no zero-weight one. Among the
+15 same-shape partitions it ties for worst, while grouping \texttt{anger} with
+\texttt{sadness} absorbs 77 of 103.
 
 We do not call this annotator disagreement: the archive is a scrape with no
 documented labelling procedure, and one image retrieved under two queries and
@@ -413,14 +429,12 @@ al.}~\cite{barrett2019} argue facial configuration underdetermines emotional
 state in principle. If the face reliably yields only valence, everything
 clinically interesting must come from elsewhere.
 
-A face-only autism-specific model needs autism-specific face data---precisely
-the resource whose acquisition produced the retractions above---whereas a
-vision-language model supplies scene and interaction context without any such
-corpus. Sensing limits point the same way: microexpression analysis, the usual
-proposal for recovering finer states, needs frame rates and resolutions that
-in-the-wild capture of a child does not deliver. We report no experiment on
-either here; they are the direction this audit points, not results it
-establishes.
+Two directions follow, neither tested here. A face-only autism-specific model
+needs autism-specific face data---the resource whose acquisition produced the
+retractions above---whereas a vision-language model supplies scene and
+interaction context without any such corpus. And microexpression analysis, the
+usual proposal for recovering finer states, needs frame rates and resolutions
+that in-the-wild capture of a child does not deliver.
 
 \section{Limitations and Ethics}
 This audits one archive and does not establish prevalence. Duplicate detection is
