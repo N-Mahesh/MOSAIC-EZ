@@ -59,13 +59,35 @@
   "label_conflicts": {
     "groups_absorbed_by_zone_collapse": 16,
     "negative_concentration_permutation_test": {
-      "note": "Labels are permuted across the zoneable images, preserving the archive's zone marginals and the duplicate-group structure. The null answers whether negative affect absorbs more conflicts than its prevalence alone predicts.",
-      "null_mean_conflicted_files": 535.82,
-      "null_mean_negative_share": 0.594690431217639,
-      "null_p95_negative_share": 0.6167027936675024,
-      "observed_conflicted_files": 280,
-      "observed_negative_share": 0.9964285714285714,
-      "p_value_one_sided": 0.0,
+      "note": "Labels are permuted across the zoneable images, preserving the zone marginals and the duplicate-group structure. Report the count comparison, not the share comparison: the null yields roughly twice as many conflicts overall, so an observed share of 99.6% against a null share of 59.5% overstates the effect. In counts the effect is a near-total absence of cross-valence conflict.",
+      "null_conditional_on_conflict_count": {
+        "mean_negative_share": null,
+        "p_value_one_sided": null,
+        "replicates_in_window": 0,
+        "window": [
+          224.0,
+          350.0
+        ]
+      },
+      "null_unconditional": {
+        "mean_conflicted_files": 535.82,
+        "mean_negative_affect_count": 318.633,
+        "mean_negative_share": 0.594690431217639,
+        "mean_positive_neutral_count": 217.187,
+        "p95_negative_share": 0.6167027936675024
+      },
+      "observed": {
+        "conflicted_files": 280,
+        "negative_affect": 279,
+        "negative_share": 0.9964285714285714,
+        "positive_neutral": 1
+      },
+      "p_value_floor": 0.0004997501249375312,
+      "p_value_one_sided_unconditional": 0.0,
+      "ratios_to_null": {
+        "negative_affect": 0.8756155200497124,
+        "positive_neutral": 0.004604327146652424
+      },
       "replicates": 2000
     },
     "note": "Both views use the same byte-identical duplicate groups. A group counted under six_category but not under three_zone is one the categorical schema records as an annotator contradiction and the zone collapse does not.",

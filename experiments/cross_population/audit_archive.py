@@ -277,19 +277,61 @@ def main() -> None:
         null_negative.append(neg / tot if tot else 0.0)
         null_conflicted.append(tot)
     null_negative = np.asarray(null_negative)
+    null_conflicted = np.asarray(null_conflicted)
     observed_share = observed_negative / observed_total
+    observed_positive = observed_total - observed_negative
+
+    # Comparing an observed SHARE against a null SHARE is misleading here, because
+    # the null also produces about twice as many conflicts overall. Expressed in
+    # counts the finding reverses direction and sharpens: negative-affect conflicts
+    # sit slightly BELOW their null expectation, while positive/neutral conflicts
+    # are almost entirely absent. The result is a depletion of cross-valence
+    # conflict, not an enrichment of negative-affect conflict.
+    null_negative_count = float((null_conflicted * null_negative).mean())
+    null_positive_count = float((null_conflicted * (1 - null_negative)).mean())
+
+    # The share comparison is only meaningful conditional on the number of
+    # conflicts, so restrict the null to replicates that produced a comparable
+    # conflict count and ask about the valence split within those.
+    window = (null_conflicted >= observed_total * 0.8) & (null_conflicted <= observed_total * 1.25)
+    conditional = null_negative[window]
+
     permutation_test = {
-        "observed_negative_share": observed_share,
-        "null_mean_negative_share": float(null_negative.mean()),
-        "null_p95_negative_share": float(np.percentile(null_negative, 95)),
-        "p_value_one_sided": float((null_negative >= observed_share).mean()),
-        "observed_conflicted_files": observed_total,
-        "null_mean_conflicted_files": float(np.mean(null_conflicted)),
+        "observed": {
+            "conflicted_files": observed_total,
+            "negative_affect": observed_negative,
+            "positive_neutral": observed_positive,
+            "negative_share": observed_share,
+        },
+        "null_unconditional": {
+            "mean_conflicted_files": float(null_conflicted.mean()),
+            "mean_negative_affect_count": null_negative_count,
+            "mean_positive_neutral_count": null_positive_count,
+            "mean_negative_share": float(null_negative.mean()),
+            "p95_negative_share": float(np.percentile(null_negative, 95)),
+        },
+        "ratios_to_null": {
+            "negative_affect": observed_negative / null_negative_count,
+            "positive_neutral": observed_positive / null_positive_count,
+        },
+        "null_conditional_on_conflict_count": {
+            "replicates_in_window": int(window.sum()),
+            "window": [observed_total * 0.8, observed_total * 1.25],
+            "mean_negative_share": float(conditional.mean()) if window.sum() else None,
+            "p_value_one_sided": (
+                float((conditional >= observed_share).mean()) if window.sum() else None
+            ),
+        },
+        "p_value_one_sided_unconditional": float((null_negative >= observed_share).mean()),
+        "p_value_floor": 1.0 / (2000 + 1),
         "replicates": 2000,
         "note": (
-            "Labels are permuted across the zoneable images, preserving the archive's "
-            "zone marginals and the duplicate-group structure. The null answers whether "
-            "negative affect absorbs more conflicts than its prevalence alone predicts."
+            "Labels are permuted across the zoneable images, preserving the zone "
+            "marginals and the duplicate-group structure. Report the count comparison, "
+            "not the share comparison: the null yields roughly twice as many conflicts "
+            "overall, so an observed share of 99.6% against a null share of 59.5% "
+            "overstates the effect. In counts the effect is a near-total absence of "
+            "cross-valence conflict."
         ),
     }
 

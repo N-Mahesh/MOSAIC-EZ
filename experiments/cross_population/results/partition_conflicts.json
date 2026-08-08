@@ -1,0 +1,164 @@
+{
+  "five_way_baseline": {
+    "conflicted_files": 280,
+    "conflicted_group_share": 0.2976878612716763,
+    "conflicted_groups": 103,
+    "duplicate_groups": 346
+  },
+  "partitions_evaluated": 18,
+  "ranked": [
+    {
+      "absorbed_vs_five_way": 77,
+      "conflicted_files": 77,
+      "conflicted_group_share": 0.07514450867052024,
+      "conflicted_groups": 26,
+      "duplicate_groups": 346,
+      "name": "anger+sadness|fear+joy|natural"
+    },
+    {
+      "absorbed_vs_five_way": 77,
+      "conflicted_files": 77,
+      "conflicted_group_share": 0.07514450867052024,
+      "conflicted_groups": 26,
+      "duplicate_groups": 346,
+      "name": "anger+sadness|fear+natural|joy"
+    },
+    {
+      "absorbed_vs_five_way": 77,
+      "conflicted_files": 77,
+      "conflicted_group_share": 0.07514450867052024,
+      "conflicted_groups": 26,
+      "duplicate_groups": 346,
+      "name": "anger+sadness|joy+natural|fear"
+    },
+    {
+      "absorbed_vs_five_way": 25,
+      "conflicted_files": 205,
+      "conflicted_group_share": 0.2254335260115607,
+      "conflicted_groups": 78,
+      "duplicate_groups": 346,
+      "name": "anger+joy|fear+sadness|natural"
+    },
+    {
+      "absorbed_vs_five_way": 25,
+      "conflicted_files": 205,
+      "conflicted_group_share": 0.2254335260115607,
+      "conflicted_groups": 78,
+      "duplicate_groups": 346,
+      "name": "anger+natural|fear+sadness|joy"
+    },
+    {
+      "absorbed_vs_five_way": 25,
+      "conflicted_files": 205,
+      "conflicted_group_share": 0.2254335260115607,
+      "conflicted_groups": 78,
+      "duplicate_groups": 346,
+      "name": "fear+sadness|joy+natural|anger"
+    },
+    {
+      "absorbed_vs_five_way": 1,
+      "conflicted_files": 278,
+      "conflicted_group_share": 0.2947976878612717,
+      "conflicted_groups": 102,
+      "duplicate_groups": 346,
+      "name": "arousal_like"
+    },
+    {
+      "absorbed_vs_five_way": 1,
+      "conflicted_files": 278,
+      "conflicted_group_share": 0.2947976878612717,
+      "conflicted_groups": 102,
+      "duplicate_groups": 346,
+      "name": "anger+fear|natural+sadness|joy"
+    },
+    {
+      "absorbed_vs_five_way": 1,
+      "conflicted_files": 278,
+      "conflicted_group_share": 0.2947976878612717,
+      "conflicted_groups": 102,
+      "duplicate_groups": 346,
+      "name": "fear+joy|natural+sadness|anger"
+    },
+    {
+      "absorbed_vs_five_way": 1,
+      "conflicted_files": 278,
+      "conflicted_group_share": 0.2947976878612717,
+      "conflicted_groups": 102,
+      "duplicate_groups": 346,
+      "name": "anger+joy|natural+sadness|fear"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "zones"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "valence_crossing"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "anger+fear|joy+sadness|natural"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "fear+natural|joy+sadness|anger"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "anger+natural|joy+sadness|fear"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "anger+fear|joy+natural|sadness"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "anger+natural|fear+joy|sadness"
+    },
+    {
+      "absorbed_vs_five_way": 0,
+      "conflicted_files": 280,
+      "conflicted_group_share": 0.2976878612716763,
+      "conflicted_groups": 103,
+      "duplicate_groups": 346,
+      "name": "anger+joy|fear+natural|sadness"
+    }
+  ],
+  "zone_partition": {
+    "absorbed_vs_five_way": 0,
+    "conflicted_files": 280,
+    "conflicted_group_share": 0.2976878612716763,
+    "conflicted_groups": 103,
+    "duplicate_groups": 346,
+    "name": "zones"
+  },
+  "zone_rank_ascending": 11
+}
