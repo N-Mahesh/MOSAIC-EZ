@@ -1,0 +1,204 @@
+{
+  "experiment_name": "talaat_asd_primary_three_zone_v2",
+  "fixed_test_count": 251,
+  "fixed_test_counts_by_zone": {
+    "zone1_natural_joy": 138,
+    "zone2_anger_fear": 61,
+    "zone3_sadness": 52
+  },
+  "label_integrity": {
+    "conflicted_sha256_group_count": 103,
+    "duplicate_audit": {
+      "candidate_pairs_compared": 90316,
+      "duplicate_component_count": 1303,
+      "duplicate_components_size_gt_1": 328,
+      "exact_duplicate_union_edges": 243,
+      "label_conflicted_duplicate_components": 22,
+      "largest_duplicate_component": 5,
+      "perceptual_near_duplicate_union_edges": 126
+    },
+    "excluded_counts_by_zone": {
+      "zone1_natural_joy": 1,
+      "zone2_anger_fear": 173,
+      "zone3_sadness": 106
+    },
+    "excluded_sample_count": 280,
+    "leakage_group_count": 1206,
+    "mlp_error_concentration": {
+      "conflict_share_in_zone2_zone3": 0.9964285714285714,
+      "note": "Both quantities describe the same two zones; this is an alignment between the dataset's contradictory-label concentration and the model's residual confusion, not a claim that one causes the other.",
+      "zone2_zone3_share_of_all_errors": 0.47337962962962965
+    },
+    "negative_zone_share_of_conflicts": 0.9964285714285714,
+    "policy": "exclude every sample whose byte-identical SHA-256 group has multiple primary-zone labels",
+    "sample_count": 1672
+  },
+  "models": {
+    "deepface": {
+      "accuracy": 0.5418326693227091,
+      "balanced_accuracy": 0.3770750711235387,
+      "balanced_accuracy_ci": [
+        0.33074955244310084,
+        0.4248846230033321
+      ],
+      "chance_corrected_balanced_accuracy": 0.06561260668530809,
+      "cohens_kappa_pooled": 0.11497777096428018,
+      "macro_f1": 0.3524589054796616,
+      "n_runs": 1,
+      "per_zone_recall_pooled": {
+        "zone1_natural_joy": 0.8768115942028986,
+        "zone2_anger_fear": 0.19672131147540983,
+        "zone3_sadness": 0.057692307692307696
+      },
+      "pooled_confusion": [
+        [
+          121,
+          8,
+          9
+        ],
+        [
+          42,
+          12,
+          7
+        ],
+        [
+          35,
+          14,
+          3
+        ]
+      ]
+    },
+    "linear": {
+      "accuracy": 0.7866533864541831,
+      "balanced_accuracy": 0.7308274089100888,
+      "balanced_accuracy_ci": [
+        0.6686825835844393,
+        0.7943195672689554
+      ],
+      "chance_corrected_balanced_accuracy": 0.5962411133651332,
+      "cohens_kappa_pooled": 0.6383372887102242,
+      "macro_f1": 0.7345838284019941,
+      "n_runs": 20,
+      "per_zone_recall_pooled": {
+        "zone1_natural_joy": 0.8981884057971015,
+        "zone2_anger_fear": 0.6885245901639344,
+        "zone3_sadness": 0.6057692307692307
+      },
+      "pooled_confusion": [
+        [
+          2479,
+          126,
+          155
+        ],
+        [
+          180,
+          840,
+          200
+        ],
+        [
+          190,
+          220,
+          630
+        ]
+      ]
+    },
+    "majority": {
+      "accuracy": 0.549800796812749,
+      "balanced_accuracy": 0.3333333333333333,
+      "balanced_accuracy_ci": [
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "chance_corrected_balanced_accuracy": 0.0,
+      "cohens_kappa_pooled": 0.0,
+      "macro_f1": 0.2365038560411311,
+      "n_runs": 1,
+      "per_zone_recall_pooled": {
+        "zone1_natural_joy": 1.0,
+        "zone2_anger_fear": 0.0,
+        "zone3_sadness": 0.0
+      },
+      "pooled_confusion": [
+        [
+          138,
+          0,
+          0
+        ],
+        [
+          61,
+          0,
+          0
+        ],
+        [
+          52,
+          0,
+          0
+        ]
+      ]
+    },
+    "mlp": {
+      "accuracy": 0.8278884462151395,
+      "balanced_accuracy": 0.7779632015644133,
+      "balanced_accuracy_ci": [
+        0.7253227876384106,
+        0.8335978455629897
+      ],
+      "chance_corrected_balanced_accuracy": 0.66694480234662,
+      "cohens_kappa_pooled": 0.709519925097546,
+      "macro_f1": 0.7802416323777964,
+      "n_runs": 20,
+      "per_zone_recall_pooled": {
+        "zone1_natural_joy": 0.9260869565217391,
+        "zone2_anger_fear": 0.7549180327868853,
+        "zone3_sadness": 0.6528846153846154
+      },
+      "pooled_confusion": [
+        [
+          2556,
+          103,
+          101
+        ],
+        [
+          89,
+          921,
+          210
+        ],
+        [
+          162,
+          199,
+          679
+        ]
+      ]
+    }
+  },
+  "source_metrics": "experiments\\visual_emotion_fair\\artifacts\\v2\\results\\metrics.json",
+  "training_seed_count": 20,
+  "zone_reframing_reanalysis": {
+    "deepface_six_emotion": {
+      "balanced_accuracy": 0.2817,
+      "chance_corrected_balanced_accuracy": 0.13804000000000002,
+      "chance_floor": 0.16666666666666666,
+      "macro_f1": 0.2604,
+      "n_classes": 6
+    },
+    "deepface_three_zone": {
+      "balanced_accuracy": 0.4512,
+      "chance_corrected_balanced_accuracy": 0.17679999999999998,
+      "chance_floor": 0.3333333333333333,
+      "macro_f1": 0.4566,
+      "n_classes": 3
+    },
+    "interpretation": {
+      "chance_corrected_gain": 0.03875999999999996,
+      "note": "The headline 28.2%->45.1% gain is measured against different chance floors. On a chance-corrected axis the same relabeling moves DeepFace much less, so the zone framing must be defended on actionability rather than on discrimination gain.",
+      "raw_balanced_accuracy_gain": 0.16949999999999998
+    },
+    "vit_mlp_three_zone": {
+      "balanced_accuracy": 0.5813,
+      "chance_corrected_balanced_accuracy": 0.37195000000000006,
+      "chance_floor": 0.3333333333333333,
+      "macro_f1": 0.5764,
+      "n_classes": 3
+    }
+  }
+}
