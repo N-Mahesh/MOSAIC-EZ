@@ -29,22 +29,18 @@ Emotion recognition is widely proposed as assistive technology for autistic
 children, and papers on public autism facial-expression archives report up to
 97.95\% accuracy. We audit one such archive. It ships two overlapping dataset
 trees, 21.4\% of its files are byte-identical duplicates, and 119 duplicate
-groups carry contradictory labels on pixel-identical images. Holding the features and classifier fixed and
-changing how train and test are separated---which also moves training-set size
-by 2.6$\times$ and test size by 4$\times$---five-category balanced accuracy
-spans 0.346--0.750; duplicate leakage explains little of it---a
-point estimate of 5.0 points, and 2.1 for a nearest-neighbour memoriser, neither
-distinguishable from zero at this sample size. The contradictions have a degenerate geometry: every
-one involves \texttt{sadness}, and a single boundary---valence---absorbs 102 of
-103. Controls then
-refute our own prior three-zone framework---it absorbs none of the
-contradictions, because it cuts between anger and sadness where disagreement
-peaks, and its apparent stability advantage is generic to class count. Chance-corrected under a group-aware split, a binary
-valence target scores 0.780 against 0.590 for three zones and 0.625 for five
-categories, so this archive supports a valence decision well and finer ones
-poorly. This is a
-measurement audit, not a deployable classifier, and not a claim about any
-child's internal state.
+groups carry contradictory labels on pixel-identical images. Holding features
+and classifier fixed while changing how train and test are separated,
+five-category balanced accuracy spans 0.346--0.750; duplicate leakage explains
+little of that---5.0 points, and 2.1 for a nearest-neighbour memoriser, neither
+distinguishable from zero here. The contradictions have a degenerate geometry:
+every one involves \texttt{sadness}, and a single boundary absorbs 102 of 103.
+Controls then refute our own prior three-zone framework, which absorbs none of
+them because it cuts where disagreement peaks, and whose apparent stability
+advantage proves generic to class count. Chance-corrected under a group-aware
+split, a binary non-negative/negative target scores 0.780 against 0.590 for
+three zones and 0.625 for five categories. This is a measurement audit, not a
+deployable classifier, and not a claim about any child's internal state.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -138,8 +134,8 @@ any re-splitting: this is what a downstream user receives.
 \textbf{Two overlapping datasets ship as one.} The archive contains two
 top-level trees (Table~\ref{tab:trees}) with different class balances and
 splits, sharing 323 unique images---45.0\% of the smaller tree's unique images. Published descriptions of this
-dataset disagree on its size, and only one of the reported figures (830) matches
-either tree; two trees with overlapping contents are at least a candidate
+dataset disagree on its size, and only one of the reported figures approximately
+matches a tree (830 against the smaller tree's 833 files); two trees with overlapping contents are at least a candidate
 explanation, though we cannot reconstruct every published count.
 
 \begin{table}[t]
@@ -182,7 +178,9 @@ internal inconsistency of the artifact is not arguable.
 Contamination matters only if it moves results. We hold the features and the
 classifier fixed and vary how train and test are separated. This is not a clean intervention and we do not present
 it as one: training pools range from 695 to 1{,}772 files and test sets from 69
-to 293, because that is what the archive's own splits give you. The question is
+to 293, because that is what the archive's own splits give you. Seed dispersion
+in Table~\ref{tab:ablation} excludes test-set sampling error, which is
+${\approx}\pm0.06$ at $n=69$ and ${\approx}\pm0.03$ at $n=293$. The question is
 what a reader learns from one published number, not what one isolated factor
 contributes. Features are frozen \texttt{ViT-B/16}
 embeddings~\cite{dosovitskiy2021}; the head is a one-hidden-layer MLP (256
@@ -204,12 +202,9 @@ which makes it the sharpest available probe of how much these duplicates are
 worth under this representation.
 
 \begin{table}[t]
-\caption{Only the split changes, so test size, test composition, and train size
-all move with it. ``Exact/Fam.'' is the share of test images with a
-byte-identical twin in training, then with any near-duplicate or
-augmentation-family member there. Ten seeds; sd is over seeds and excludes
-test-set sampling error (${\approx}\pm0.06$ at $n=69$, ${\approx}\pm0.03$ at
-$n=293$).}
+\caption{Only the split changes. ``Exact/Fam.'' is the share of test images with
+a byte-identical twin in training, then with any near-duplicate or
+augmentation-family member there. Ten seeds; sd is over seeds only.}
 \label{tab:ablation}
 \centering
 \setlength{\tabcolsep}{2.5pt}
@@ -282,19 +277,18 @@ which is the opposite of convenient for us. 1-NN also matches or beats the train
 protocols, which bounds how much the head is extracting beyond nearest-neighbour
 structure and is a further reason to read these absolute values as a floor.
 
-\textbf{This form of contamination does not reach the published band.} Under
-five categories the best value any protocol reaches, with any estimator, is
-0.755---below the 80.0--97.95\% band reported on archives of this
-family~\cite{radocaj2025,hanumantharayappa2026}. Those are plain accuracies and
-ours are balanced, a comparison that favours them on these imbalanced splits;
-our pooled-random accuracy is 0.721, which does not change the conclusion. So \emph{exact-duplicate and
+\textbf{Under frozen features, this contamination does not reach the published
+band.} Under five categories the best value any protocol reaches, with any
+estimator we ran, is 0.755---below the 80.0--97.95\% band reported on archives of this
+family~\cite{radocaj2025,hanumantharayappa2026}. Those are plain accuracies and ours
+balanced, which favours them here; our pooled-random accuracy is 0.721, which
+does not change the conclusion. So \emph{exact-duplicate and
 augmentation-family leakage, under frozen \texttt{ViT-B/16} features and our
-re-splits}, does not by itself produce those figures. This is not a claim that
-contamination is irrelevant: augmentation applied before splitting in downstream
-derivatives is itself synthesis leakage~\cite{apicella2025} and would not appear
-in our accounting, since we audit the archive as shipped. Small test sets,
-selection among runs, and fine-tuned networks on contaminated splits remain
-untested candidates.
+re-splits}, does not by itself produce those figures. This is not a claim that contamination is
+irrelevant: augmentation applied before splitting in downstream derivatives is
+itself synthesis leakage~\cite{apicella2025} and would not appear in our
+accounting. Small test sets, selection among runs, and fine-tuned networks on
+contaminated splits remain untested candidates.
 
 \section{Where the Contradictions Live}
 \label{sec:zones}
@@ -334,20 +328,19 @@ Best of 15 three-block partitions & 26 & 77\\
   cat/.style={draw,rounded corners=2pt,inner sep=2.5pt,font=\normalsize},
 ]
 \node[cat] (ang) at (0,0) {\texttt{anger}};
-\node[cat] (sad) at (2.35,0) {\texttt{sadness}};
-\node[cat] (fea) at (4.85,0) {\texttt{fear}};
-\node[cat] (nat) at (0,-0.92) {\texttt{natural}};
-\node[cat] (joy) at (4.85,-0.92) {\texttt{joy}};
+\node[cat] (sad) at (2.45,0) {\texttt{sadness}};
+\node[cat] (fea) at (5.0,0) {\texttt{fear}};
+\node[cat] (nat) at (0,-0.95) {\texttt{natural}};
+\node[cat] (joy) at (5.0,-0.95) {\texttt{joy}};
 \draw[very thick] (ang) -- node[above,inner sep=1pt] {77} (sad);
 \draw[very thick] (sad) -- node[above,inner sep=1pt] {25} (fea);
-\draw[very thick,densely dashed] (nat) -- node[below,sloped,inner sep=1pt] {1} (sad);
-\draw[dotted] (nat) -- node[below,inner sep=1pt] {0} (joy);
-\draw[dotted] (sad) -- node[below,sloped,inner sep=1pt] {0} (joy);
+\draw[very thick,densely dashed] (nat) -- node[below right,inner sep=1pt,pos=0.45] {1} (sad);
 \end{tikzpicture}
 \caption{All 103 cross-label duplicate groups involve \texttt{sadness}. Edges
-count byte-identical groups filed under both endpoints; dotted edges are zero,
-and \texttt{anger}--\texttt{fear} is also zero. The dashed edge is the only one
-crossing valence. Our three-zone scheme separates \texttt{sadness} from
+count byte-identical groups filed under both endpoints; the six pairs not drawn
+have zero, including \texttt{anger}--\texttt{fear} and
+\texttt{natural}--\texttt{joy}. The dashed edge is the only one crossing
+valence. Our three-zone scheme separates \texttt{sadness} from
 \{\texttt{anger},\texttt{fear}\}, cutting both heavy edges---which is why it
 absorbs none of the contradictions.}
 \label{fig:conflicts}
@@ -409,8 +402,10 @@ split, chance-corrected so the three label spaces are commensurable, binary
 valence scores 0.780 against 0.625 for five categories and 0.590 for three
 zones. The zone collapse does not even improve on the five-way task once the
 floor is removed; only the valence collapse does, and it does so at exactly the
-boundary the conflict analysis identifies as reliable. So the archive supports a
-valence decision well and finer ones poorly, which argues for a binary target
+boundary the conflict analysis identifies as reliable. So the archive supports a valence
+decision well and finer ones poorly. That is consistent with the fine labels
+being unreliable, though it does not separate unreliable labels from a simply
+harder task; both point to a binary target
 rather than the three-zone scheme we and others have used---or, if three levels
 are wanted for intervention, for a partition that does not cut between anger and
 sadness. Coarsening does reduce protocol sensitivity, but not monotonically and not in
@@ -462,13 +457,15 @@ we redistribute nothing.
 This archive ships two overlapping copies sharing 45\% of the smaller tree's
 unique images, is 21.4\% duplicated, and contains 119 groups of pixel-identical
 images with contradictory labels. Changing how train and test are separated
-moves five-category balanced accuracy across a 40.4-point band while duplicate
-leakage moves it by an undetectable 5.0, so one number here says little about a
-model.
+moves five-category balanced accuracy across a 40.4-point band, while duplicate
+leakage moves it by an undetectable 5.0 points under frozen features---a
+fine-tuned encoder, which can memorise in a way frozen features cannot, remains
+untested. Either way, one number here says little about a model.
 
-The contradictions have a geometry: one boundary absorbs 102 of 103, a 113-fold
-depletion of cross-valence conflict against a marginal-preserving null, while
-conflict within negative affect is if anything enriched. Our own three-zone
+The contradictions have a geometry: one boundary absorbs 102 of 103, and
+cross-valence conflict is depleted by at least an order of magnitude against a
+marginal-preserving null, while conflict within negative affect is if anything
+enriched. Our own three-zone
 framework absorbs none of them---it cuts between anger and sadness, where
 disagreement peaks---and its stability advantage proves generic to class count.
 Chance-corrected, only the binary non-negative/negative target improves on the
