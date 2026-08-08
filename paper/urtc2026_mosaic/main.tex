@@ -13,9 +13,9 @@
 \renewcommand{\scriptsize}{\urtcnormalsize}
 \renewcommand{\tiny}{\urtcnormalsize}
 
-\title{What Are We Measuring? A Benchmark Audit and a\\
-Failed Zone Hypothesis in Emotion Recognition\\
-for Autistic Children}
+\title{What Are We Measuring? A Benchmark Audit\\
+and a Failed Zone Hypothesis in\\
+Emotion Recognition for Autistic Children}
 \author{\IEEEauthorblockN{Nikhil Mahesh}\IEEEauthorblockA{Pioneer Research}}
 
 \begin{document}
@@ -27,12 +27,13 @@ children, and papers on public autism facial-expression archives report up to
 97.95\% accuracy. We audit the archive behind many of those figures. It ships
 two overlapping dataset trees sharing 45\% of the smaller tree's images, 21.4\%
 of its files are byte-identical duplicates, and 103 duplicate groups carry
-contradictory labels on pixel-identical images. Holding images, features, and
-classifier fixed and varying only the split protocol, five-category balanced
-accuracy spans 0.346--0.750; duplicate leakage explains little of this, worth
+contradictory labels on pixel-identical images. Holding the image pool, features, and
+classifier fixed and changing only how train and test are separated,
+five-category balanced accuracy spans 0.346--0.750; duplicate leakage explains little of this, worth
 5.0 points and 2.1 to a nearest-neighbour memoriser. The contradictions have a
 sharp geometry: one boundary, valence, absorbs 102 of 103, and a permutation
-null puts cross-valence conflict at a roughly 200-fold depletion. Controls then
+null conditioned on the observed conflict count puts cross-valence conflict at a
+113-fold depletion. Controls then
 refute our own prior three-zone framework---it absorbs none of the
 contradictions, because it cuts between anger and sadness where disagreement
 peaks, and its apparent stability advantage is generic to class count. A binary
@@ -132,11 +133,10 @@ We audit the public Kaggle archive associated
 with~\cite{talaat2023retracted}.\footnote{Slug
 \texttt{fatmamtalaat/}\-\texttt{autistic-}\-\texttt{children-}\-\texttt{emotions-}\-\texttt{dr-fatma-m-talaat}.
 We name it for reproducibility while noting it distributes images of minors of
-disputed provenance; readers should weigh that before downloading.} The 1{,}429 distinct SHA-256
-digests covering the 1{,}672 files retained by an earlier run of ours---which
-excluded \texttt{surprise} and the conflicted groups---are all present in the
-fresh download, confirming the archive has not changed under us. The audit here
-covers all 1{,}774 distinct digests. Statistics below come from the vendor's own directory layout, before
+disputed provenance; readers should weigh that before downloading.} An earlier run of ours retained 1{,}672 files
+after excluding \texttt{surprise} and the conflicted groups. All 1{,}429 distinct
+SHA-256 digests covering those files are present in the fresh download, so the
+archive has not changed under us. The audit here covers all 1{,}774 digests. Statistics below come from the vendor's own directory layout, before
 any re-splitting: this is what a downstream user receives.
 
 \textbf{Two overlapping datasets ship as one.} The archive contains two
@@ -199,85 +199,55 @@ worth under this representation.
 
 \begin{table}[t]
 \caption{Same image pool, features, and classifier; only the split changes---so
-the test sets differ in size and composition, and $n$ is given for each. ``Grp''
-is the share of test images whose duplicate or augmentation family also appears
-in training. Ten seeds; sd is over seeds and does not include test-set sampling
-error, which at $n=69$ is roughly $\pm 0.06$.}
+test size, test composition, and train size all move with it. ``Exact/Fam.'' gives the
+share of test images with a byte-identical twin in training, then the share
+whose near-duplicate or augmentation family appears there. Ten seeds; sd is over seeds and
+excludes test-set sampling error, which is ${\approx}\pm0.06$ at $n=69$ and
+${\approx}\pm0.03$ at $n=293$.}
 \label{tab:ablation}
 \centering
 \setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{lccccc}
 \toprule
-Protocol & Bal.\ acc. & sd & 1-NN & Grp & $n$\\
+Protocol & Bal.\ acc. & sd & 1-NN & Exact/Fam. & $n$\\
 \midrule
 \multicolumn{6}{l}{\emph{Five categories} (chance $=0.200$)}\\
-Vendor split, imbal.\ tree & 0.346 & .050 & 0.348 & 26.1\% & 69\\
-Train one tree, test other & 0.500 & .043 & 0.476 & 24.6\% & 69\\
-Vendor split, bal.\ tree & 0.558 & .037 & 0.585 & 33.3\% & 189\\
-Group-aware & 0.700 & .052 & 0.734 & 0.0\% & 180\\
-Pooled random & 0.750 & .028 & 0.755 & 80.6\% & 293\\
+Vendor split, imbal. & 0.346 & .050 & 0.348 & 1.4/26.1\% & 69\\
+Train tree A, test B & 0.500 & .043 & 0.476 & 23.2/24.6\% & 69\\
+Vendor split, bal. & 0.558 & .037 & 0.585 & 0.0/33.3\% & 189\\
+Group-aware & 0.700 & .052 & 0.734 & 0.0/0.0\% & 180\\
+Pooled random & 0.750 & .028 & 0.755 & 35.8/80.6\% & 293\\
 \midrule
 \multicolumn{6}{l}{\emph{Three zones} (chance $=0.333$)}\\
-Vendor split, imbal.\ tree & 0.497 & .063 & 0.392 & 26.1\% & 69\\
-Vendor split, bal.\ tree & 0.562 & .025 & 0.552 & 33.3\% & 189\\
-Train one tree, test other & 0.665 & .025 & 0.661 & 24.6\% & 69\\
-Group-aware & 0.727 & .034 & 0.733 & 0.0\% & 180\\
-Pooled random & 0.735 & .023 & 0.736 & 80.6\% & 293\\
+Vendor split, imbal. & 0.497 & .063 & 0.392 & 1.4/26.1\% & 69\\
+Vendor split, bal. & 0.562 & .025 & 0.552 & 0.0/33.3\% & 189\\
+Train tree A, test B & 0.665 & .025 & 0.661 & 23.2/24.6\% & 69\\
+Group-aware & 0.727 & .034 & 0.733 & 0.0/0.0\% & 180\\
+Pooled random & 0.735 & .023 & 0.736 & 35.8/80.6\% & 293\\
 \midrule
 \multicolumn{6}{l}{\emph{Binary valence} (chance $=0.500$)}\\
-Vendor split, imbal.\ tree & 0.720 & .011 & 0.569 & 26.1\% & 69\\
-Vendor split, bal.\ tree & 0.824 & .029 & 0.797 & 33.3\% & 189\\
-Train one tree, test other & 0.839 & .030 & 0.858 & 24.6\% & 69\\
-Group-aware & 0.890 & .019 & 0.869 & 0.0\% & 180\\
-Pooled random & 0.925 & .017 & 0.926 & 80.6\% & 293\\
+Vendor split, imbal. & 0.720 & .011 & 0.569 & 1.4/26.1\% & 69\\
+Vendor split, bal. & 0.824 & .029 & 0.797 & 0.0/33.3\% & 189\\
+Train tree A, test B & 0.839 & .030 & 0.858 & 23.2/24.6\% & 69\\
+Group-aware & 0.890 & .019 & 0.869 & 0.0/0.0\% & 180\\
+Pooled random & 0.925 & .017 & 0.926 & 35.8/80.6\% & 293\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}[x=6.1cm,y=0.58cm]
-% published band: 0.800--0.9795, the full range reported on this archive family
-\fill[black!12] (0.800,0.30) rectangle (0.9795,3.05);
-\node[anchor=south,inner sep=1pt] at (0.890,3.05) {\textbf{published}};
-% axis
-\draw[->] (0.20,0) -- (1.03,0);
-\foreach \x/\l in {0.2/0.2,0.4/0.4,0.6/0.6,0.8/0.8,1.0/1.0}{
-  \draw (\x,0) -- (\x,-0.12) node[below,anchor=north,inner sep=1pt] {\l};}
-\node[below] at (0.615,-0.46) {balanced accuracy};
-% rows
-\node[anchor=east] at (0.19,2.55) {5-category};
-\draw[thick] (0.346,2.55) -- (0.750,2.55);
-\foreach \x in {0.346,0.500,0.558,0.700,0.750}{\fill (\x,2.55) circle (1.6pt);}
-\node[anchor=east] at (0.19,1.70) {3-zone};
-\draw[thick] (0.497,1.70) -- (0.735,1.70);
-\foreach \x in {0.497,0.562,0.665,0.727,0.735}{\fill (\x,1.70) circle (1.6pt);}
-\node[anchor=east] at (0.19,0.85) {valence};
-\draw[thick] (0.720,0.85) -- (0.925,0.85);
-\foreach \x in {0.720,0.824,0.839,0.890,0.925}{\fill (\x,0.85) circle (1.6pt);}
-\end{tikzpicture}
-\caption{Each dot is one split protocol over the same images, features, and
-classifier; test sets differ in size, so part of each spread (40.4, 23.8, 20.5
-points) is sampling noise. Under five categories the best result, 0.755
-(SE ${\approx}0.03$), sits 4.5 points below the published band's lower edge and
-22 below its upper. Only binary valence enters the band, because the question is
-easier---not because the archive is cleaner.}
-\label{fig:spread}
-\end{figure}
 
-Table~\ref{tab:ablation} and Fig.~\ref{fig:spread} support three claims and
-refute a fourth---that leakage explains the published figures---which we
-expected to make.
+Table~\ref{tab:ablation} supports three claims and refutes a fourth---that
+leakage explains the published figures---which we expected to make.
 
 \textbf{The reported number is largely a choice.} Across five defensible
 protocols on identical images, five-category balanced accuracy spans 0.346 to
 0.750, a 40.4-point range. The protocols also differ in test-set size and
 composition, so this is protocol plus sampling rather than protocol alone; the
 smallest cells hold 69 images.
-Seed dispersion is 2.3--6.3 points, several times
-smaller than the protocol spread even after allowing that the range of five
-draws is itself about $2.3\sigma$, and test-set sampling error at $n=69$ is
-roughly $\pm 0.06$. A reader given one number cannot tell where in
+Seed dispersion is 2.8--5.2 points in this block,
+several times smaller than the protocol spread even after allowing that the
+range of five draws is itself about $2.3\sigma$; test-set sampling error at
+$n=69$ is roughly $\pm0.06$. A reader given one number cannot tell where in
 that band it sits.
 
 \textbf{The zone collapse narrows the spread.} The same protocols span 23.8
@@ -287,19 +257,25 @@ $(\text{BA}-1/k)/(1-1/k)$. Sec.~\ref{sec:beyond} quantifies the reduction under
 a single fixed split, where the controls also run, and shows it is not a
 property of \emph{these} classes.
 
-\textbf{Duplicate leakage is real but second-order.} Pooled random leaks the
-family of 80.6\% of its test images and exceeds the group-aware split by 5.0
-points under five categories and 0.8 under zones. The reference memoriser gains
+\textbf{Duplicate leakage is second-order at most.} Pooled random has a
+byte-identical twin in training for 35.8\% of its test images and a family
+member for 80.6\%, and exceeds the group-aware split by 5.0 points under five
+categories and 0.8 under zones. Both differences are at or inside sampling
+noise---combining test-set standard errors at $n=180$ and $n=293$ gives
+${\approx}0.047$ on the difference---so 5.0 points is an upper estimate, not a
+measured effect. The reference memoriser gains
 even less: 1-NN improves by only 2.1 and 0.3 points from the same contamination,
 so the duplicates are worth little even to the estimator best placed to exploit
-them. 1-NN also matches or beats the trained head on three of five five-category
+them. 1-NN also matches or beats the trained head on four of five five-category
 protocols, which bounds how much the head is extracting beyond nearest-neighbour
 structure and is a further reason to read these absolute values as a floor.
 
 \textbf{This form of contamination does not reach the published band.} Under
 five categories the best value any protocol reaches, with any estimator, is
 0.755---below the 80.0--97.95\% band reported on archives of this
-family~\cite{radocaj2025,hanumantharayappa2026}. So \emph{exact-duplicate and
+family~\cite{radocaj2025,hanumantharayappa2026}. Those are plain accuracies and
+ours are balanced, a comparison that favours them on these imbalanced splits;
+our pooled-random accuracy is 0.721, which does not change the conclusion. So \emph{exact-duplicate and
 augmentation-family leakage, under frozen \texttt{ViT-B/16} features and our
 re-splits}, does not by itself produce those figures. This is not a claim that
 contamination is irrelevant: augmentation applied before splitting in downstream
@@ -313,8 +289,10 @@ untested candidates.
 The contradictions are not spread evenly across the label space, and locating
 them turns out to matter more than counting them.
 
-Restrict to the 1{,}952 images whose category maps to a valence zone
-(\texttt{surprise} has none) and ask, for each way of coarsening those five
+Our prior three-zone framework groups the vendor's categories as zone~1
+\{\texttt{natural} (the vendor's label for neutral), \texttt{joy}\}, zone~2
+\{\texttt{anger}, \texttt{fear}\}, zone~3 \{\texttt{sadness}\}, leaving
+\texttt{surprise} unmapped. Restrict to the 1{,}952 images that receive a zone and ask, for each way of coarsening those five
 categories, how many byte-identical duplicate groups still straddle a block
 boundary. A coarsening that absorbs many contradictions is one whose boundaries
 the filing process respected. Because every candidate below has the same block
@@ -326,7 +304,7 @@ are. Table~\ref{tab:conflicts} gives the result.
 coarsening, against 346 duplicate groups and a 103-conflict five-way baseline.}
 \label{tab:conflicts}
 \centering
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{lrr}
 \toprule
 Coarsening & Conflicts & Absorbed\\
@@ -338,7 +316,7 @@ Five categories (baseline) & 103 & ---\\
 \{anger\} vs rest & 77 & 26\\
 \{anger, fear\} vs rest & 102 & 1\\
 \midrule
-Valence zones \{nat,joy\}\{ang,fear\}\{sad\} & 103 & 0\\
+Valence zones (3 blocks) & 103 & 0\\
 Best of 15 three-block partitions & 26 & 77\\
 \bottomrule
 \end{tabular}
@@ -349,10 +327,11 @@ negative leaves one conflicted group out of 346; every other binary cut leaves
 far more. A permutation null preserving the zone marginals and duplicate-group
 structure sharpens this: it expects 536 conflicted files, 217 touching
 positive/neutral, where the archive has 280 of which exactly one does.
-Cross-valence conflict is therefore depleted
-roughly 200-fold. Conditioning on the 280 conflicts that actually occur---the
-null over-predicts the total by 1.9$\times$---within-negative conflict is
-\emph{enriched} about 1.7-fold rather than depleted. The filing process
+The null over-predicts the total number of
+conflicts by 1.9$\times$, so we condition on the 280 that actually occur: that
+gives 113 expected cross-valence conflicts against 1 observed, a 113-fold
+depletion, while within-negative conflict is \emph{enriched} about 1.7-fold
+rather than depleted. The filing process
 separated valence almost perfectly and anger, fear, and sadness not at all.
 
 \textbf{The three-zone partition absorbs none of it.} This is a negative result
@@ -370,29 +349,38 @@ model is identical, and it is the consequence our evidence supports.
 
 \section{What This Does and Does Not License}
 \label{sec:beyond}
-\textbf{A stability argument for zones does not survive its control.} Collapsing
-five classes to three narrows the chance-corrected protocol range from 0.482 to
-0.404, a 16.1\% reduction. That reads as support for zones until the control is
-run. Across all 15 partitions of the same 2-2-1 shape the chance-corrected range
-runs from 0.325 to 0.628; the zone partition ranks 5th, and a deliberately
-valence-crossing partition does \emph{better} (0.391, an 18.7\% reduction).
-Fewer classes buys stability; \emph{these} classes buy nothing extra. We report
-this because we expected the opposite, and because a coarsening cannot be
-justified by a property that every coarsening shares.
+\textbf{A stability argument for zones does not survive its control.} From
+Table~\ref{tab:ablation} the chance-corrected protocol range narrows from 0.505
+under five categories to 0.357 under three zones, a 29.3\% reduction, which
+reads as support for zones. To test whether \emph{these} three classes are
+responsible we re-ran the same five protocols over every partition of the five
+categories into blocks of 2, 2, and 1---15 of them, same block shape as the
+zones---on a single fixed split with five seeds. On that run the five-category
+baseline is 0.482 and the zone partition gives 0.404 (16.1\%), but the 15
+partitions span 0.325 to 0.628, the zone partition ranks 5th, and a deliberately
+valence-crossing partition does \emph{better} at 0.391. (The 16.1\% and 29.3\%
+figures differ because the control uses one fixed split and five seeds rather
+than per-seed splits and ten; only the within-run comparison is meaningful.)
+Fewer classes buys stability; these classes buy nothing extra. We report this
+because we expected the opposite, and because a coarsening cannot be justified
+by a property every coarsening shares.
 
 \textbf{What survives is a granularity claim, and it is sharper.} The evidence in
 Sec.~\ref{sec:zones} is specific to one boundary: the reproducible distinction is
 valence, and the anger/fear/sadness distinctions are not reproducible at all.
 Table~\ref{tab:ablation} bears this out where it matters. Under the group-aware
-split the binary valence target reaches 0.890, against 0.727 for three zones and
-0.700 for five categories; the gain is concentrated entirely at the boundary the
-conflict analysis identifies as reliable. So the archive supports a valence
-decision well and finer decisions poorly, which argues for a binary target
+split, chance-corrected so the three label spaces are commensurable, binary
+valence scores 0.780 against 0.625 for five categories and 0.590 for three
+zones. The zone collapse does not even improve on the five-way task once the
+floor is removed; only the valence collapse does, and it does so at exactly the
+boundary the conflict analysis identifies as reliable. So the archive supports a
+valence decision well and finer ones poorly, which argues for a binary target
 rather than the three-zone scheme we and others have used---or, if three levels
 are wanted for intervention, for a partition that does not cut between anger and
-sadness. Note that binary valence does not reduce protocol sensitivity either
-(chance-corrected range 0.410, against 0.404 for zones): coarsening fixes
-\emph{what} is being asked, not how much the answer depends on the split.
+sadness. Coarsening does not reduce protocol sensitivity, though: the
+chance-corrected range is 0.410 for valence against 0.357 for zones and 0.505
+for five categories. It fixes \emph{what} is asked, not how much the answer
+depends on the split.
 
 We stop short of the actionability claim: zones are usually motivated by what a
 caregiver would do, we ran no caregiver study, and nothing here shows anger and
@@ -443,24 +431,22 @@ unstated, so we redistribute nothing.
 \section{Conclusion}
 A widely used public autism emotion archive ships two overlapping copies sharing
 45\% of the smaller, is 21.4\% duplicated, and contains 103 groups of
-pixel-identical images with contradictory labels. Varying only the split
-protocol moves five-category balanced accuracy across a 40.4-point band, so a
-single number on this archive says little about a model. Exact-duplicate and
-augmentation-family leakage is not the main driver---worth 5.0 points, and 2.1
-to a reference memoriser---and no protocol we ran reaches the published band,
-though augmentation applied before splitting in downstream derivatives would not
-show up in our accounting.
+pixel-identical images with contradictory labels. Changing only how train and
+test are separated moves five-category balanced accuracy across a 40.4-point
+band, and duplicate leakage accounts for at most 5.0 points of it, so a single
+number on this archive says little about a model.
 
-One boundary carries the label structure: valence absorbs 102 of 103
-contradictions, and cross-valence conflict is depleted roughly 200-fold against
-a marginal-preserving null. Our own three-zone framework absorbs none of them,
-because it cuts between anger and sadness where disagreement is greatest, and
-its protocol-stability advantage disappears against same-shape controls. The
-granularity this archive supports is binary valence; anything finer needs
-context beyond the face. Any future benchmark here should report a duplicate
-audit, a group-aware split, and chance-corrected metrics as a condition of being
-believed---and, given how this archive was assembled, should not be built by
-scraping.
+The contradictions have a geometry: valence absorbs 102 of 103, a 113-fold
+depletion against a marginal-preserving null, while conflict within negative
+affect is if anything enriched. Our own three-zone framework absorbs none of
+them---it cuts between anger and sadness, where disagreement peaks---and its
+apparent stability advantage disappears against same-shape controls.
+Chance-corrected, only the binary valence target improves on the five-way task.
+This archive supports a valence decision and little else; anything finer needs
+context the face does not carry. Future benchmarks here should report a
+duplicate audit, a group-aware split, and chance-corrected metrics as a
+condition of being believed---and, given how this one was assembled, should not
+be built by scraping.
 
 % =====================================================================
 % ACKNOWLEDGMENT -- REQUIRED BEFORE SUBMISSION. Must contain (a) the faculty
