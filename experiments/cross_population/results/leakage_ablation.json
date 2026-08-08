@@ -1,0 +1,132 @@
+{
+  "leakage_group_count": 477,
+  "n_records": 2258,
+  "protocols": {
+    "six_category": {
+      "cross_tree": {
+        "accuracy_mean": 0.7266666666666668,
+        "balanced_accuracy_mean": 0.4507936507936508,
+        "balanced_accuracy_std": 0.042087610801840425,
+        "kappa_mean": 0.5615023029962788,
+        "macro_f1_mean": 0.4175377855829046,
+        "n_test": 75,
+        "n_train": 1425,
+        "test_group_leaked_share": 0.25333333333333335,
+        "test_leaked_share": 0.24
+      },
+      "group_aware": {
+        "accuracy_mean": 0.7053522445960063,
+        "balanced_accuracy_mean": 0.6652332813440833,
+        "balanced_accuracy_std": 0.06409243593273906,
+        "kappa_mean": 0.618954223745919,
+        "macro_f1_mean": 0.6467423669910118,
+        "n_test": 172,
+        "n_train": 2085.8,
+        "test_group_leaked_share": 0.0,
+        "test_leaked_share": 0.0
+      },
+      "naive_random": {
+        "accuracy_mean": 0.7209439528023599,
+        "balanced_accuracy_mean": 0.7092192960242294,
+        "balanced_accuracy_std": 0.03131420347427776,
+        "kappa_mean": 0.657178196525105,
+        "macro_f1_mean": 0.7025654339447134,
+        "n_test": 339,
+        "n_train": 1919.0,
+        "test_group_leaked_share": 0.8156342182890857,
+        "test_leaked_share": 0.3445427728613569
+      },
+      "vendor_balanced": {
+        "accuracy_mean": 0.5207964601769911,
+        "balanced_accuracy_mean": 0.5208757629810261,
+        "balanced_accuracy_std": 0.03268467832424824,
+        "kappa_mean": 0.4240374106951652,
+        "macro_f1_mean": 0.5256997760868718,
+        "n_test": 226,
+        "n_train": 1199,
+        "test_group_leaked_share": 0.3053097345132743,
+        "test_leaked_share": 0.0
+      },
+      "vendor_talaat": {
+        "accuracy_mean": 0.6613333333333333,
+        "balanced_accuracy_mean": 0.32460317460317467,
+        "balanced_accuracy_std": 0.04032981798975556,
+        "kappa_mean": 0.41372673369368007,
+        "macro_f1_mean": 0.3184728044378189,
+        "n_test": 75,
+        "n_train": 758,
+        "test_group_leaked_share": 0.26666666666666666,
+        "test_leaked_share": 0.04
+      }
+    },
+    "three_zone": {
+      "cross_tree": {
+        "accuracy_mean": 0.8405797101449275,
+        "balanced_accuracy_mean": 0.6654195011337868,
+        "balanced_accuracy_std": 0.024530180022846383,
+        "kappa_mean": 0.6456255808865078,
+        "macro_f1_mean": 0.6562611244531842,
+        "n_test": 69,
+        "n_train": 1188,
+        "test_group_leaked_share": 0.2463768115942029,
+        "test_leaked_share": 0.2318840579710145
+      },
+      "group_aware": {
+        "accuracy_mean": 0.7646728042412192,
+        "balanced_accuracy_mean": 0.7266862352225514,
+        "balanced_accuracy_std": 0.033693591154845166,
+        "kappa_mean": 0.6218006480416804,
+        "macro_f1_mean": 0.7187710544542165,
+        "n_test": 180,
+        "n_train": 1772.0,
+        "test_group_leaked_share": 0.0,
+        "test_leaked_share": 0.0
+      },
+      "naive_random": {
+        "accuracy_mean": 0.7788395904436859,
+        "balanced_accuracy_mean": 0.7346405019926519,
+        "balanced_accuracy_std": 0.023402979974999065,
+        "kappa_mean": 0.6496913085932801,
+        "macro_f1_mean": 0.7309543260929443,
+        "n_test": 293,
+        "n_train": 1659.0,
+        "test_group_leaked_share": 0.8064846416382254,
+        "test_leaked_share": 0.35767918088737205
+      },
+      "vendor_balanced": {
+        "accuracy_mean": 0.6264550264550264,
+        "balanced_accuracy_mean": 0.561748538011696,
+        "balanced_accuracy_std": 0.0246440246867348,
+        "kappa_mean": 0.411908502401948,
+        "macro_f1_mean": 0.5601095791548185,
+        "n_test": 189,
+        "n_train": 999,
+        "test_group_leaked_share": 0.3333333333333333,
+        "test_leaked_share": 0.0
+      },
+      "vendor_talaat": {
+        "accuracy_mean": 0.7507246376811594,
+        "balanced_accuracy_mean": 0.49682539682539684,
+        "balanced_accuracy_std": 0.06249166886802921,
+        "kappa_mean": 0.3777800136742454,
+        "macro_f1_mean": 0.5087082859888875,
+        "n_test": 69,
+        "n_train": 695,
+        "test_group_leaked_share": 0.2608695652173913,
+        "test_leaked_share": 0.014492753623188406
+      }
+    }
+  },
+  "seeds": [
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31
+  ]
+}

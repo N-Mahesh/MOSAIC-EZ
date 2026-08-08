@@ -1,0 +1,429 @@
+\documentclass[conference,10pt]{IEEEtran}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={What Are We Measuring? Benchmark Integrity and a Zone-Based Reframing for Emotion Recognition in Autistic Children},pdfauthor={Nikhil Mahesh}}
+% URTC requires a minimum of 10 point font throughout, including tables and references.
+\let\urtcnormalsize\normalsize
+\renewcommand{\small}{\urtcnormalsize}
+\renewcommand{\footnotesize}{\urtcnormalsize}
+\renewcommand{\scriptsize}{\urtcnormalsize}
+\renewcommand{\tiny}{\urtcnormalsize}
+
+\title{What Are We Measuring? Benchmark Integrity and a\\
+Zone-Based Reframing for Emotion Recognition in Autistic Children}
+\author{\IEEEauthorblockN{Nikhil Mahesh}\IEEEauthorblockA{Pioneer Research}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Automated emotion recognition is widely proposed as an assistive technology for
+autistic children, and recent papers report 97.95--99.99\% accuracy on public
+autism facial-expression benchmarks. Independently collected clinical corpora
+report 40--78\% on the same task. We resolve this contradiction by auditing the
+most widely used public archive. Re-acquiring it and verifying it byte-for-byte
+against our earlier run, we find that it ships two overlapping dataset trees
+sharing 45\% of the smaller tree's images, that 21.4\% of its files are
+byte-identical duplicates of another file, and that 119 duplicate groups carry
+mutually contradictory emotion labels on pixel-identical images. Holding
+features, classifier, and label space fixed and varying only the split protocol,
+six-category balanced accuracy spans 0.325 to 0.709 across five defensible
+readings of the same archive. Duplicate leakage itself proves second-order,
+worth 4.4 points, and no protocol we construct approaches the published figures;
+the dominant effect is which subset one evaluates on. The label contradictions
+are not uniform: 279 of 280 zone-level conflicts fall in negative affect and one
+falls in positive/neutral. Annotators agree on valence and cannot agree within
+negative valence, so the six-category schema is itself manufacturing the noise it
+is scored against. Collapsing to three action-oriented Emotion Zones cuts
+protocol-induced variance by 38\%, which argues for coarser labels and
+multimodal context over finer face-only categories. We report chance-corrected
+metrics throughout so a collapse to fewer classes is never credited for the
+chance floor moving. This is a measurement audit, not a deployable classifier,
+and not a claim about any child's internal state.
+\end{abstract}
+
+\begin{IEEEkeywords}
+benchmark integrity, data leakage, label noise, affective computing, autism
+\end{IEEEkeywords}
+
+\section{Introduction}
+Roughly 1 in 31 eight-year-olds in the United States is diagnosed with autism
+spectrum disorder (ASD)~\cite{shaw2025}. Because emotional expression in
+autistic people is frequently misread by non-autistic observers---the
+\emph{double empathy problem}~\cite{nas2018}---automated emotion recognition is
+repeatedly proposed as a communication aid for autistic children and their
+caregivers.
+
+The literature on this task is in an unusual state. Papers evaluating on public
+autism facial-expression archives report accuracies of
+97.95\%~\cite{hanumantharayappa2026}, 99.8\%, and 99.99\%. Papers evaluating on
+independently collected, consented clinical corpora report far less: 40\% for a
+commercial analyser on the EMBOA autism corpus~\cite{kiejdo2025}, 57.95--64.92\%
+for four commercial classifiers on parent-reported autistic
+children~\cite{kalantarian2020}, and 66.43\% for a classifier trained on
+typically developing children and tested on autistic children~\cite{grossard2020}.
+The gap between these two literatures is roughly 30 accuracy points, and it
+tracks how the evaluation data were obtained rather than what the models are.
+
+That correlation has recently become impossible to ignore. Between November 2025
+and 2026, publishers retracted or flagged roughly 90 papers built on scraped
+autism face datasets, including the source paper for the archive we audit
+here~\cite{talaat2023retracted} and a facial emotion recognition
+paper~\cite{gungor2025retracted}, on the grounds that the images were collected
+from the internet without documented diagnosis, ethical oversight, or guardian
+consent. That established the \emph{provenance} failure. It did not establish
+whether the reported numbers were also, independently, measurement artifacts.
+
+This paper supplies that missing measurement. Our contributions are:
+
+\begin{enumerate}
+\item A quantified integrity audit of the most widely used public autism
+emotion archive, computed from the vendor's own directory layout, reporting
+duplicate structure, cross-copy overlap, and cross-label duplicate groups
+(Sec.~\ref{sec:archive}).
+\item A leakage ablation that holds features, classifier, and label space fixed
+and varies only the split protocol across five plausible readings of the
+archive, separating protocol effects from signal (Sec.~\ref{sec:ablation}).
+\item The observation that the label contradictions are concentrated almost
+entirely in negative affect, which we argue is evidence that the categorical
+schema is generating them (Sec.~\ref{sec:zones}).
+\item A resulting argument for coarser action-oriented zones and multimodal
+context over finer face-only categories, with chance-corrected metrics so the
+collapse is not credited for the chance floor (Sec.~\ref{sec:beyond}).
+\end{enumerate}
+
+We are auditing an instrument, not building one. We make no claim about any
+child's internal state, and we treat every label as an annotator judgment about
+an image rather than as ground truth about a person.
+
+\section{Related Work}
+\textbf{Cross-population transfer is established.} Grossard \emph{et
+al.}~\cite{grossard2020} ran the controlled experiment on lab-collected video
+from 157 typically developing and 36 autistic children with subject-independent
+cross-validation, obtaining 82.05\% within-population and 66.43\% when training
+on typically developing children and testing on autistic children. Gaya-Morey
+\emph{et al.}~\cite{gayamorey2026} repeated the design with twelve CNNs on an
+adjacent population, observing roughly 90\% within-population against under 55\%
+across. We do not claim this finding. We ask a different question: whether the
+public benchmarks now used to measure it can support the measurement at all.
+
+\textbf{Benchmark contamination is a mature field.} Barz and
+Denzler~\cite{barz2020} found 3.3\% and 10\% duplicate rates in CIFAR-10 and
+CIFAR-100 test sets and released cleaned splits. Northcutt \emph{et
+al.}~\cite{northcutt2021} showed that label errors in test sets reorder model
+rankings. Ramos \emph{et al.}~\cite{ramos2025} give the taxonomy we adopt:
+\emph{hard} leakage for identical images across a split, \emph{soft} for near
+duplicates, \emph{intra-dataset} for overlap within one dataset's own splits.
+Adimoolam \emph{et al.}~\cite{adimoolam2026} name \emph{augmented duplicates}
+and report 89\% duplication in a geospatial benchmark. Apicella \emph{et
+al.}~\cite{apicella2025} formalise \emph{synthesis leakage}, where train and
+test items derive from a common source under a generating transform. None of
+this literature has examined a clinical affect dataset.
+
+\textbf{Contamination in this specific archive has been asserted, not
+measured.} The authors of the FERAC derivative~\cite{ferac2024} reported ``class
+overlap and image duplication'' in this archive, removed duplicates, and dropped
+two classes as unrecoverable. They did not report a detection method or
+threshold, a duplicate rate, a cross-split leakage rate, or the effect of
+cleaning. Two independent groups have now flagged the same archive; what remains
+open is the quantity.
+
+\textbf{Why the labels might be the problem.} Barrett \emph{et
+al.}~\cite{barrett2019} challenge the premise that emotional state is readable
+from facial configuration at all. Keating \emph{et al.}~\cite{keating2026},
+using over 265 million motion-capture points across 4{,}896 expressions, find
+autistic and non-autistic expressions differ in which muscles carry each
+emotion and in kinematic smoothness, concluding the two groups may be
+``essentially speaking a different language.'' Zane \emph{et
+al.}~\cite{zane2019} report that autistic expressions are produced at
+intensities non-autistic raters find ambiguous. If the expressions are ambiguous
+under a non-autistic reading, forcing them into six mutually exclusive
+categories should produce exactly the contradictions we measure.
+
+\textbf{Ethical framing.} Nagy~\cite{nagy2024} argues that autism has been
+mobilised by emotion-AI developers as a charismatic use case and a testbed.
+We take that critique as a constraint on what this paper may claim.
+
+\section{The Archive}
+\label{sec:archive}
+We audit the public Kaggle archive
+\texttt{fatmamtalaat/autistic-children-emo\allowbreak tions-dr-fatma-m-talaat},
+the dataset associated with~\cite{talaat2023retracted}. We re-acquired it and
+verified that all 1{,}672 SHA-256 digests recorded in our earlier manifests are
+present in the fresh download, so the audit and the model results in
+Sec.~\ref{sec:ablation} describe the same bytes. All statistics below are
+computed from the vendor's own directory layout, before any re-splitting: this
+is what a downstream user receives.
+
+\textbf{The archive ships two overlapping datasets.} It contains two top-level
+trees (Table~\ref{tab:trees}) with different class balances and different
+train/test splits. They share 323 unique images, 45.0\% of the smaller tree.
+This is a sufficient explanation for a puzzling feature of the literature:
+published descriptions of ``the Talaat dataset'' report its size variously as
+348, 830, 1{,}603, and ``2500+'' images. Papers are describing whichever tree
+they loaded.
+
+\begin{table}[t]
+\caption{The two dataset trees shipped in one archive.}
+\label{tab:trees}
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+Tree & Files & Unique & Train & Test\\
+\midrule
+Balanced copy & 1{,}425 & 1{,}380 & 1{,}199 & 226\\
+Imbalanced copy & 833 & 717 & 758 & 75\\
+\midrule
+\multicolumn{5}{l}{Shared unique images: 323 (45.0\% of smaller tree)}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{One file in five is a duplicate.} Of 2{,}258 labelled images, only
+1{,}774 are distinct by SHA-256; 484 files (21.4\%) are byte-identical copies of
+another file. Duplicate groups reach size 5. Perceptual hashing at Hamming
+distance 4 adds 163 further near-duplicate components. A filename-suffix pattern
+(\texttt{\_aug\_N}) identifies 1{,}020 augmentation families, 335 of them larger
+than one and the largest containing 9 members, so a substantial part of the
+archive is synthetic variation on a smaller set of source images. This is
+synthesis leakage in the sense of~\cite{apicella2025}, and unusually it is
+\emph{announced in the filenames}: it was trivially detectable and shipped
+regardless.
+
+\textbf{Pixel-identical images carry contradictory labels.} Under the vendor's
+six categories, 119 byte-identical duplicate groups (327 files) contain members
+filed under more than one emotion. This is a stronger and cheaper claim than
+label-error detection in the sense of~\cite{northcutt2021}: establishing it
+requires no external ground truth and no annotator panel, only a hash. It is an
+internal inconsistency of the artifact.
+
+\section{How Much of the Number Is the Protocol?}
+\label{sec:ablation}
+Contamination matters only if it moves results. We therefore hold the features,
+the classifier, and the label space fixed and vary \emph{only} how train and
+test are separated. Features are frozen \texttt{ViT-B/16}
+embeddings~\cite{dosovitskiy2021}; the head is a one-hidden-layer MLP with
+epoch-wise early stopping; every protocol is run over ten seeds~\cite{bouthillier2021}.
+The five protocols are all defensible readings of the archive: the two trees'
+own shipped splits; training on one tree and testing on the other; a pooled
+random split that ignores duplicates, which is what an \texttt{ImageFolder} plus
+\texttt{train\_test\_split} pipeline produces; and a group-aware split over
+connected components of the exact-duplicate, near-duplicate, and
+augmentation-family graph~\cite{joeres2025,saeb2017}.
+
+\begin{table}[t]
+\caption{Same features, same classifier, same labels; only the split protocol
+changes. ``Group leak'' is the share of test images whose duplicate or
+augmentation family also appears in training. Ten seeds.}
+\label{tab:ablation}
+\centering
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Protocol & Bal.\ acc. & Acc. & Group leak & $n_{\text{test}}$\\
+\midrule
+\multicolumn{5}{l}{\emph{Six categories}}\\
+Vendor split, imbalanced tree & 0.325 & 0.661 & 26.7\% & 75\\
+Vendor split, balanced tree & 0.521 & 0.521 & 30.5\% & 226\\
+Train one tree, test other & 0.451 & 0.727 & 25.3\% & 75\\
+Group-aware & 0.665 & 0.705 & 0.0\% & 172\\
+Pooled random & 0.709 & 0.721 & 81.6\% & 339\\
+\midrule
+\multicolumn{5}{l}{\emph{Three zones}}\\
+Vendor split, imbalanced tree & 0.497 & 0.751 & 26.1\% & 69\\
+Vendor split, balanced tree & 0.562 & 0.627 & 33.3\% & 189\\
+Train one tree, test other & 0.665 & 0.841 & 24.6\% & 69\\
+Group-aware & 0.727 & 0.765 & 0.0\% & 180\\
+Pooled random & 0.735 & 0.779 & 80.6\% & 293\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:ablation} supports three claims, and refutes a fourth that we
+had expected to make.
+
+\textbf{The reported number is largely a choice.} Across five defensible
+protocols on identical data, six-category balanced accuracy spans 0.325 to
+0.709: a 38.5-point range attributable entirely to how the archive is read. A
+reader given only a single number cannot tell where in that band it sits.
+
+\textbf{Metric choice compounds it.} Because the vendor's splits are severely
+imbalanced, plain accuracy and balanced accuracy diverge sharply---0.661 versus
+0.325 on the imbalanced tree's own test split, a 33.6-point gap on one protocol
+with one model. Reporting accuracy on these splits is itself inflationary.
+
+\textbf{Zones are markedly more protocol-stable.} The same five protocols span
+23.8 points under the three-zone collapse against 38.5 under six categories, a
+38\% reduction in protocol-induced variance. The coarser target is not merely
+easier; it is less sensitive to a methodological choice the reader cannot see.
+
+\textbf{But duplicate leakage alone does not explain inflated results.} The
+pooled random split leaks the duplicate or augmentation family of 81.6\% of its
+test images and still exceeds the group-aware split by only 4.4 points
+(0.8 under zones). This is a negative result and we report it as one: in this
+archive, leakage is real but second-order. Critically, \emph{no} protocol we
+could construct---including the most contaminated---approaches the 97.95--99.99\%
+figures in the literature. Under this standard recipe the published numbers are
+not reachable by contamination alone, so they must originate elsewhere: in
+augmentation applied before splitting in downstream derivatives, in test sets of
+a few dozen images, or in selection among many reported runs. Our audit
+constrains the explanation without completing it.
+
+\section{Why the Labels Contradict}
+\label{sec:zones}
+The contradictions are not spread evenly across the label space. Mapping the six
+categories onto three valence/arousal zones---zone 1 (natural, joy), zone 2
+(anger, fear), zone 3 (sadness)---and recounting gives Table~\ref{tab:conflicts}.
+
+\begin{table}[t]
+\caption{Cross-label duplicate groups at two label granularities. Both views use
+the same byte-identical groups.}
+\label{tab:conflicts}
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrr}
+\toprule
+& Six categories & Three zones\\
+\midrule
+Conflicted duplicate groups & 119 & 103\\
+Conflicted files & 327 & 280\\
+\midrule
+\multicolumn{3}{l}{\emph{Conflicted files by class}}\\
+Positive / neutral & 5 & 1\\
+Negative affect & 292 & 279\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two things follow. First, collapsing to zones absorbs 16 of the 119 categorical
+contradictions (13.4\%): those are cases where annotators disagreed between
+anger and fear, or between labels that fall inside one zone, and the coarser
+schema simply does not record the disagreement. Second, and far more strikingly,
+the residue is almost entirely negative: 279 of 280 zone-level conflicted files
+are in zones 2 and 3, against one in zone 1.
+
+Annotators agree, essentially perfectly, on whether an autistic child's
+expression is positive or negative. They cannot agree on which negative emotion
+it is. That pattern is what~\cite{keating2026} and~\cite{zane2019} predict: if
+autistic expressions are produced in a register non-autistic raters find
+ambiguous, the ambiguity should concentrate where the categories are closest
+together, which is inside negative affect.
+
+This reframes the contradictions. They are not simply sloppiness in one archive.
+A six-way forced choice over ambiguous expressions \emph{manufactures}
+contradiction, because an annotator who perceives an ambiguous negative
+expression must nonetheless pick one box. The label schema is generating the
+noise the models are then scored against.
+
+\section{Beyond Face-Only Categorical Recognition}
+\label{sec:beyond}
+Two design consequences follow, and one caution.
+
+\textbf{Coarser, action-oriented labels.} If the reliable signal is valence and
+the unreliable signal is the specific negative category, then a label space
+built on the reliable boundary is better founded than one built across it. This
+is the argument for Emotion Zones: classes defined by what a caregiver would
+\emph{do}---de-escalate, engage, comfort---rather than by which Ekman category a
+non-autistic annotator would select. Zones are not merely a convenience; on
+these data they are the granularity at which annotation is reproducible.
+
+\textbf{The caution: do not credit the chance floor.} A collapse from six
+classes to three raises the chance baseline from 1/6 to 1/3, and comparing raw
+balanced accuracies across the two spaces silently rewards that. On our earlier
+data a commercial classifier moved from 28.17\% (six categories) to 45.12\%
+(three zones), an apparent 16.95-point gain. Chance-corrected, the same
+relabeling is worth 3.88 points. The zone argument must rest on construct
+validity and annotation reliability, which the evidence above supports, not on a
+discrimination gain that is mostly an artifact of counting. We therefore report
+Cohen's $\kappa$ alongside balanced accuracy throughout.
+
+\textbf{Context beyond the face.} Table~\ref{tab:models} gives our
+leakage-controlled reference results on a group-aware split with 20 training
+seeds and a cluster bootstrap over duplicate groups. Two numbers matter. A
+neurotypically trained commercial classifier reaches 37.7\% balanced accuracy
+with a 95\% interval of [33.1, 42.5] against a majority-class floor of 33.3\%,
+and its recall on zone 3 is 5.8\%: on this test set it is close to
+indistinguishable from predicting the majority class. A probe trained on the
+same population reaches 77.8\%. The gap is not that the task is impossible; it
+is that a face-only model trained on non-autistic faces is the wrong instrument.
+
+\begin{table}[t]
+\caption{Leakage-controlled reference results. Group-aware split, 251 test images
+in 181 duplicate groups, 20 seeds, cluster bootstrap over groups.}
+\label{tab:models}
+\centering
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrlrr}
+\toprule
+Model & Bal.\ acc. & 95\% CI & $\kappa$ & Zone-3 rec.\\
+\midrule
+Majority class & 0.333 & --- & 0.000 & 0.000\\
+DeepFace (NT-trained) & 0.377 & [0.331, 0.425] & 0.115 & 0.058\\
+Linear probe & 0.731 & [0.669, 0.794] & 0.638 & 0.606\\
+MLP probe & 0.778 & [0.725, 0.834] & 0.710 & 0.653\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This is where multimodal and vision-language approaches earn their place, and
+the reason is a data argument rather than an accuracy argument. Training a
+face-only autism-specific model requires autism-specific face data, which is
+precisely the resource whose acquisition produced the retraction wave. A
+vision-language model brings broad prior knowledge about scenes, activities, and
+posture without requiring any autism-specific training corpus, and can supply
+the environmental and interaction context that a cropped face cannot. Given
+that our clean face-only ceiling is 77.8\% and that~\cite{barrett2019} argues
+facial configuration underdetermines emotional state in principle, the
+remaining headroom is unlikely to be found in better face classifiers. It is
+more likely to be found in context---and in reporting a zone with an explanation
+a caregiver can check, rather than a category with a confidence score.
+
+\section{Limitations and Ethics}
+This is an audit of one archive and does not establish prevalence across the
+field, though~\cite{ferac2024} reports consistent qualitative findings. Our
+duplicate detection is exact-hash and perceptual-hash based; it will miss
+re-encoded or cropped duplicates, so our rates are lower bounds. Cluster
+bootstrap intervals are percentile intervals, which can under-cover~\cite{anglin2026}.
+We use no subject identities because the archive supplies none, so our groups
+are duplicate and augmentation families, not people; a subject-disjoint split
+would likely be stricter still.
+
+We report only aggregate statistics. No image, filename, hash, or per-image
+prediction is released. We make no claim that any depicted child is autistic,
+that any label reflects a felt emotion, or that any system built on this
+analysis should be deployed. The archive's provenance is disputed and its
+license is unstated; we redistribute nothing and cite the source so the audit
+can be reproduced from it. Under the EU AI Act, emotion inference in education
+is prohibited except under a medical exemption whose justification explicitly
+references autism, which raises rather than lowers the evidentiary bar on the
+benchmarks used to support such systems.
+
+\section{Conclusion}
+The most widely used public autism emotion archive ships two overlapping copies
+sharing 45\% of the smaller, is 21.4\% duplicated, and contains 119 groups of
+pixel-identical images with contradictory labels. Varying only the split
+protocol moves six-category balanced accuracy across a 38.5-point band, so a
+single reported number on this archive carries little information about a model.
+Duplicate leakage is not the main culprit---it is worth 4.4 points---and no
+protocol we could construct reaches the 97.95--99.99\% figures in the
+literature, which we therefore cannot attribute to contamination alone.
+
+The label contradictions concentrate almost entirely in negative affect, which
+indicates that the six-category schema is manufacturing them rather than merely
+recording them, and the three-zone collapse cuts protocol-induced variance by
+38\%. Coarser action-oriented zones and multimodal context are better founded
+responses than finer face-only categories. Any future benchmark in this area
+should report a duplicate audit, a group-aware split, and chance-corrected
+metrics as a condition of being believed---and, given how this archive was
+assembled, should not be built by scraping at all.
+
+\section*{Acknowledgment}
+% AI USE DISCLOSURE -- EXACT WORDING PENDING FROM AUTHOR
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}
