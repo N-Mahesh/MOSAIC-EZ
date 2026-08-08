@@ -210,3 +210,66 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Local research inputs and generated media
+/current.mp4
+/temp_facial.jpg
+/data/ReCANVo.zip
+
+# Local API configuration variants
+.env.*
+!.env.example
+
+# Governance containment for new files only. These rules do not untrack
+# existing files, erase Git history, or revoke copies already distributed.
+
+# Raw or intermediate participant media and archives
+/data/FER-2013/
+/data/ReCANVo/
+/data/ReCANVo.*
+/cropped.png
+/input.m4a
+/output.png
+/output.wav
+/output/
+/tmp/
+
+# Record-level audit artifacts
+/experiments/visual_emotion_fair/artifacts/**/manifests/
+/experiments/visual_emotion_fair/artifacts/**/embeddings/
+/experiments/visual_emotion_fair/artifacts/**/results/*prediction*
+/experiments/visual_emotion_fair/artifacts/**/results/*error*
+/experiments/visual_emotion_fair/artifacts/**/*sample*
+/experiments/visual_emotion_fair/artifacts/**/*manifest*
+/experiments/visual_emotion_fair/artifacts/**/*embedding*
+
+# Legacy manuscript and models derived from questioned data
+
+# Audit-only release quarantine. These paths can contain linkable records,
+# restricted pins, local paths, questioned outputs, or legacy child imagery.
+# A future public package must be built from an affirmative allowlist instead
+# of staging this working tree.
+/experiments/visual_emotion_fair/artifacts/
+/experiments/visual_emotion_fair/config.json
+/experiments/visual_emotion_fair/config_v1.json
+/experiments/visual_emotion_fair/config_v3_prospective.json
+/experiments/visual_emotion_fair/environment.lock.json
+/experiments/visual_emotion_fair/artifact_checksums.sha256
+/paper/figures/
+/paper/artifact_checksums.sha256
+/paper/submission_checksums.sha256
+/paper/urtc2026.aux
+/paper/urtc2026.bbl
+/paper/urtc2026.blg
+/paper/urtc2026.log
+/paper/urtc2026.out
+/paper/urtc2026.pdf
+/paper/main.tex
+/paper/main.pdf
+/paper/main.*
+/models/ViTClassification/*.pth
+/models/nonverbal_classifier/*.pt
+
+# Cross-population study build products (not redistributable / large)
+/experiments/cross_population/fer_embeddings/
+/experiments/cross_population/fer_extract.log
