@@ -34,7 +34,8 @@ and classifier fixed while changing how train and test are separated,
 five-category balanced accuracy spans 0.346--0.750; duplicate leakage explains
 little of that---5.0 points, and 2.1 for a nearest-neighbour memoriser, neither
 distinguishable from zero here. The contradictions have a degenerate geometry:
-every one involves \texttt{sadness}, and a single boundary absorbs 102 of 103.
+of the 103 groups spanning a mapped emotion, every one involves
+\texttt{sadness}, and a single boundary absorbs 102 of them.
 Controls then refute our own prior three-zone framework, which absorbs none of
 them because it cuts where disagreement peaks, and whose apparent stability
 advantage proves generic to class count. Chance-corrected under a group-aware
@@ -128,7 +129,8 @@ We name it for reproducibility while noting it distributes images of minors of
 disputed provenance; readers should weigh that before downloading.} An earlier run of ours retained 1{,}672 files
 after excluding \texttt{surprise} and the conflicted groups. All 1{,}429 distinct
 SHA-256 digests covering those files are present in the fresh download, so the
-archive has not changed under us. The audit here covers all 1{,}774 digests. Statistics below come from the vendor's own directory layout, before
+archive has not changed under us. The audit here covers all 2{,}258 files
+(1{,}774 distinct images). Statistics below come from the vendor's own directory layout, before
 any re-splitting: this is what a downstream user receives.
 
 \textbf{Two overlapping datasets ship as one.} The archive contains two
@@ -165,9 +167,9 @@ leakage~\cite{apicella2025}, and identifiable from filenames alone without any
 image analysis.
 
 \textbf{Pixel-identical images carry contradictory labels.} Under the vendor's
-six categories, 119 byte-identical groups (327 files) are filed under more than
-one emotion; dropping \texttt{surprise}, which no valence zone covers, leaves
-the 103 groups used from Sec.~\ref{sec:zones} onward. Establishing this needs no
+six categories, 119 of the 346 duplicate groups (34\%, 327 files) are filed
+under more than one emotion; dropping \texttt{surprise}, which no valence zone
+covers, leaves the 103 groups used from Sec.~\ref{sec:zones} onward. Establishing this needs no
 external ground truth and no annotator panel, only a hash. It is narrower than
 label-error detection~\cite{northcutt2021}---it finds only errors a duplicate
 exposes, and cannot say which label is wrong---but it is assumption-free, and an
