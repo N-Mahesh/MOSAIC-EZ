@@ -29,16 +29,18 @@ two overlapping dataset trees sharing 45\% of the smaller tree's images, 21.4\%
 of its files are byte-identical duplicates, and 103 duplicate groups carry
 contradictory labels on pixel-identical images. Holding the image pool, features, and
 classifier fixed and changing only how train and test are separated,
-five-category balanced accuracy spans 0.346--0.750; duplicate leakage explains little of this, worth
-5.0 points and 2.1 to a nearest-neighbour memoriser. The contradictions have a
+five-category balanced accuracy spans 0.346--0.750; duplicate leakage explains little of it---a
+point estimate of 5.0 points, and 2.1 for a nearest-neighbour memoriser, neither
+distinguishable from zero at this sample size. The contradictions have a
 sharp geometry: one boundary, valence, absorbs 102 of 103, and a permutation
 null conditioned on the observed conflict count puts cross-valence conflict at a
 113-fold depletion. Controls then
 refute our own prior three-zone framework---it absorbs none of the
 contradictions, because it cuts between anger and sadness where disagreement
-peaks, and its apparent stability advantage is generic to class count. A binary
-valence target reaches 0.890 under a group-aware split against 0.727 for three
-zones, so this archive supports a valence decision and nothing finer. This is a
+peaks, and its apparent stability advantage is generic to class count. Chance-corrected under a group-aware split, a binary
+valence target scores 0.780 against 0.590 for three zones and 0.625 for five
+categories, so this archive supports a valence decision well and finer ones
+poorly. This is a
 measurement audit, not a deployable classifier, and not a claim about any
 child's internal state.
 \end{abstract}
@@ -51,7 +53,7 @@ benchmark integrity, data leakage, label noise, affective computing, autism
 Roughly 1 in 31 eight-year-olds in the United States is diagnosed with autism
 spectrum disorder (ASD)~\cite{shaw2025}. Because emotional expression in
 autistic people is frequently misread by non-autistic observers---the
-\emph{double empathy problem}~\cite{nas2018}---automated emotion recognition is
+\emph{double empathy problem}~\cite{milton2012}---automated emotion recognition is
 repeatedly proposed as a communication aid.
 
 The literature on this task is in an unusual state. Papers evaluating on public
@@ -141,7 +143,7 @@ any re-splitting: this is what a downstream user receives.
 
 \textbf{Two overlapping datasets ship as one.} The archive contains two
 top-level trees (Table~\ref{tab:trees}) with different class balances and
-splits, sharing 323 unique images---45.0\% of the smaller. This plausibly
+splits, sharing 323 unique images---45.0\% of the smaller tree's unique images. This plausibly
 explains why published descriptions of this dataset report its size variously as
 348, 830, 1{,}603, and ``2500+'': different papers loaded different trees.
 
@@ -260,10 +262,12 @@ property of \emph{these} classes.
 \textbf{Duplicate leakage is second-order at most.} Pooled random has a
 byte-identical twin in training for 35.8\% of its test images and a family
 member for 80.6\%, and exceeds the group-aware split by 5.0 points under five
-categories and 0.8 under zones. Both differences are at or inside sampling
-noise---combining test-set standard errors at $n=180$ and $n=293$ gives
-${\approx}0.047$ on the difference---so 5.0 points is an upper estimate, not a
-measured effect. The reference memoriser gains
+categories and 0.8 under zones. Neither difference is detectable: combining
+test-set standard errors at $n=180$ and $n=293$ gives ${\approx}0.047$ on the
+difference, so the five-category gap is about $1.1\sigma$ and its 95\% interval
+runs from roughly zero to 14 points. We therefore cannot detect a leakage
+effect, and equally cannot rule out one several times larger than our point
+estimate. The reference memoriser gains
 even less: 1-NN improves by only 2.1 and 0.3 points from the same contamination,
 so the duplicates are worth little even to the estimator best placed to exploit
 them. 1-NN also matches or beats the trained head on four of five five-category
@@ -328,10 +332,12 @@ far more. A permutation null preserving the zone marginals and duplicate-group
 structure sharpens this: it expects 536 conflicted files, 217 touching
 positive/neutral, where the archive has 280 of which exactly one does.
 The null over-predicts the total number of
-conflicts by 1.9$\times$, so we condition on the 280 that actually occur: that
-gives 113 expected cross-valence conflicts against 1 observed, a 113-fold
-depletion, while within-negative conflict is \emph{enriched} about 1.7-fold
-rather than depleted. The filing process
+conflicted \emph{files} by 1.9$\times$, so we condition on the 280 that actually
+occur. Counting files throughout: 113 are expected to carry a positive/neutral
+label against 1 observed, a 113-fold depletion, while files carrying a
+negative-affect label are \emph{enriched} about 1.7-fold (279 against 167) rather
+than depleted. (Table~\ref{tab:conflicts} counts duplicate \emph{groups}; this
+paragraph counts files, and the two must not be compared directly.) The filing process
 separated valence almost perfectly and anger, fear, and sadness not at all.
 
 \textbf{The three-zone partition absorbs none of it.} This is a negative result
@@ -382,27 +388,24 @@ chance-corrected range is 0.410 for valence against 0.357 for zones and 0.505
 for five categories. It fixes \emph{what} is asked, not how much the answer
 depends on the split.
 
-We stop short of the actionability claim: zones are usually motivated by what a
-caregiver would do, we ran no caregiver study, and nothing here shows anger and
-fear share a response. We can say only which distinctions the data support.
+We stop short of the actionability claim: zones are motivated by what a caregiver
+would do, we ran no caregiver study, and nothing here shows anger and fear share
+a response.
 
-\textbf{Context beyond the face.} Even under our strictest split this task
-saturates well below deployment quality---the group-aware five-category result
-is 0.700, and because our groups are duplicate families rather than children
-that is an upper bound on cleanliness. Meanwhile
-Barrett \emph{et al.}~\cite{barrett2019} argue facial configuration
-underdetermines emotional state in principle. If the face reliably yields only
-valence, then everything clinically interesting---which negative state, and
-why---must come from elsewhere.
+\textbf{Context beyond the face.} Under our strictest split the five-category
+result is 0.700, and since our groups are duplicate families rather than
+children that is an upper bound on cleanliness. Barrett \emph{et
+al.}~\cite{barrett2019} argue facial configuration underdetermines emotional
+state in principle. If the face reliably yields only valence, everything
+clinically interesting must come from elsewhere.
 
 This is where multimodal and vision-language approaches earn their place, on a
-data argument rather than an accuracy one. A face-only autism-specific model
-needs autism-specific face data---precisely the resource whose acquisition
-produced the retractions cited above. A vision-language model brings prior
-knowledge of scenes, activities, and posture without any autism-specific corpus,
-and supplies the context a cropped face cannot. Reporting a coarse state with an
-explanation a caregiver can check is also more auditable than a fine-grained
-category with a confidence score, when those categories are not reproducible.
+data argument rather than an accuracy one: a face-only autism-specific model
+needs autism-specific face data, precisely the resource whose acquisition
+produced the retractions cited above, whereas a vision-language model supplies
+scene and interaction context without any such corpus. We report no experiment
+on that here; it is the direction this audit points, not a result it
+establishes.
 
 \section{Limitations and Ethics}
 This audits one archive and does not establish prevalence, though~\cite{ferac2024}
@@ -433,8 +436,8 @@ A widely used public autism emotion archive ships two overlapping copies sharing
 45\% of the smaller, is 21.4\% duplicated, and contains 103 groups of
 pixel-identical images with contradictory labels. Changing only how train and
 test are separated moves five-category balanced accuracy across a 40.4-point
-band, and duplicate leakage accounts for at most 5.0 points of it, so a single
-number on this archive says little about a model.
+band, while duplicate leakage moves it by an undetectable 5.0 points, so a
+single number on this archive says little about a model.
 
 The contradictions have a geometry: valence absorbs 102 of 103, a 113-fold
 depletion against a marginal-preserving null, while conflict within negative
